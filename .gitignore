@@ -1,0 +1,22 @@
+# Simulation outputs
+*.vcd
+*.vvp
+*.out
+*.log
+
+# Compiled files
+*.o
+*.exe
+pe_test
+array_test
+
+# Temporary files
+*~
+*.swp
+*.swo
+.DS_Store
+
+sim_pe
+
+# But keep example results
+!sim/results/.gitkeep
