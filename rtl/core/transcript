@@ -1,0 +1,8 @@
+# vsim -c -do "run 20000ns; quit" tb_systolic_array 
+# Start time: 19:16:49 on Nov 29,2025
+# ** Error: (vsim-3170) Could not find 'tb_systolic_array'.
+#         Searched libraries:
+#             C:/Users/ASUS/Desktop/SWE_Ass/VLSI_Project/rtl/core/work
+# Error loading design
+# End time: 19:16:49 on Nov 29,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0

@@ -1,0 +1,55 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/ASUS/Desktop/SWE_Ass/VLSI_Project/rtl/core
+vprocessing_element
+Z1 !s110 1764436582
+!i10b 1
+!s100 R`ERT0BX46df7le9;T4NN3
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IWB1`WAaWdYb_ED8n2nk;Y0
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1764432348
+8processing_element.v
+Fprocessing_element.v
+!i122 0
+L0 1 69
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1764436582.000000
+!s107 systolic_array.v|processing_element.v|
+Z6 !s90 processing_element.v|systolic_array.v|
+!i113 1
+Z7 tCvgOpt 0
+vsystolic_array
+R1
+!i10b 1
+!s100 LCLCYda`f=jcBZD3gHdD[2
+R2
+IS5n:fTB_L69oZ6@zUJDjA1
+R3
+R0
+w1764434025
+8systolic_array.v
+Fsystolic_array.v
+!i122 0
+L0 1 87
+R4
+r1
+!s85 0
+31
+R5
+Z8 !s107 systolic_array.v|processing_element.v|
+R6
+!i113 1
+R7
