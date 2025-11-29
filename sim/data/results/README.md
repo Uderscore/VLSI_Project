@@ -1,3 +1,4 @@
 ﻿# results
 
-Description: TODO.
+Description: Accelerator outputs produced by RTL sims.
+

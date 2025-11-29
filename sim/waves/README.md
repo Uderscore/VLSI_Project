@@ -1,3 +1,4 @@
 ﻿# waves
 
-Description: TODO.
+Description: Waveform dumps (VCD, FST, etc.).
+

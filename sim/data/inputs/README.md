@@ -1,3 +1,4 @@
 ﻿# inputs
 
-Description: TODO.
+Description: Input matrices, kernels, and configs for simulation.
+

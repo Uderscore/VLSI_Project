@@ -1,3 +1,4 @@
 ﻿# openlane
 
-Description: TODO.
+Description: Shared OpenLane configuration files.
+

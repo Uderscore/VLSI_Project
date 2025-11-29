@@ -1,3 +1,4 @@
 ﻿# expected
 
-Description: TODO.
+Description: Golden/expected outputs from Python model.
+

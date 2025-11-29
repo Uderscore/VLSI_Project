@@ -1,3 +1,4 @@
 ﻿# python
 
-Description: TODO.
+Description: Golden model, test generation, comparison.
+

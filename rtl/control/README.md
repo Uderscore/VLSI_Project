@@ -1,3 +1,4 @@
 ﻿# control
 
-Description: TODO.
+Description: Control FSM, Data Loader, AGU, top module.
+

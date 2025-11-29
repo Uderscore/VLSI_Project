@@ -1,3 +1,4 @@
 ﻿# scripts
 
-Description: TODO.
+Description: All helper scripts.
+

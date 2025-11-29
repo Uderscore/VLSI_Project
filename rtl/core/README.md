@@ -1,3 +1,4 @@
 ﻿# core
 
-Description: TODO.
+Description: PE, systolic array.
+

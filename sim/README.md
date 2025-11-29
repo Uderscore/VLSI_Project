@@ -1,3 +1,4 @@
 ﻿# sim
 
-Description: TODO.
+Description: Simulation I/O and waveform outputs.
+

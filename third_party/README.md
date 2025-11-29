@@ -1,3 +1,4 @@
 ﻿# third_party
 
-Description: TODO.
+Description: External repositories and IP blocks used by the project.
+

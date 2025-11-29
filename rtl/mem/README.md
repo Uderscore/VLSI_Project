@@ -1,3 +1,4 @@
 ﻿# mem
 
-Description: TODO.
+Description: SRAM wrapper, ping-pong buffer.
+

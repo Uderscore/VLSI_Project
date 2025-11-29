@@ -1,3 +1,4 @@
 ﻿# sram_macros
 
-Description: TODO.
+Description: VLSIDA Sky130 / OpenRAM generated SRAM macros.
+
