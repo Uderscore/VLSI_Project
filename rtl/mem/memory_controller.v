@@ -59,6 +59,16 @@ module memory_controller #(
     reg [ADDR_WIDTH-1:0] ping_wr_count;
     reg [ADDR_WIDTH-1:0] pong_wr_count;
     
+    // Latched read addresses - hold stable during read cycles
+    reg [ADDR_WIDTH-1:0] agu_rd_addr_latched;
+    reg [ADDR_WIDTH-1:0] sa_rd_addr_latched;
+    
+    // Read request status flags
+    reg agu_rd_pending;            // AGU read in progress
+    reg sa_rd_pending;             // SA read in progress
+    reg [2:0] agu_rd_delay_count;  // 3-cycle read delay for SRAM
+    reg [2:0] sa_rd_delay_count;   // 3-cycle read delay for SRAM
+    
     // SRAM Interface signals for Ping Buffer
     wire        ping_clk0, ping_csb0, ping_web0;
     wire [3:0]  ping_wmask0;
@@ -102,18 +112,21 @@ module memory_controller #(
     wire agu_rd_req = agu_rd_data_ready && !rd_buffer_empty;  // AGU requests read
     wire sa_rd_req = sa_rd_data_ready && !rd_buffer_empty;    // SA requests read
     
-    // Port 0 (RW): Used for writes and AGU reads
+    // Port 0 (R/W): Used for writes and AGU reads
     assign ping_clk0 = clk;
-    assign ping_csb0 = !((wr_en_internal && ping_write_active) || (agu_rd_req && ping_active));  // Active for write OR AGU read request
-    assign ping_web0 = !(wr_en_internal && ping_write_active);  // web0=0 for write, web0=1 for read
+    assign ping_csb0 = !((wr_en_internal && ping_write_active) || (agu_rd_req && ping_active)); // Active for write OR AGU read request
+    assign ping_web0 = !(wr_en_internal && ping_write_active); // web0=0 for write, web0=1 for read
     assign ping_wmask0 = 4'b1111;                       // Enable all bytes
-    assign ping_addr0 = (wr_en_internal && ping_write_active) ? wr_addr_internal : agu_rd_addr;  // Write addr or AGU read addr
+    // Use input address when ready asserted, latched address when request is pending
+    assign ping_addr0 = (wr_en_internal && ping_write_active) ? wr_addr_internal : 
+                        (agu_rd_data_ready && !agu_rd_pending ? agu_rd_addr : agu_rd_addr_latched);
     assign ping_din0 = wr_data_internal;
     
     // Port 1 (Read-Only): Used for SA reads
     assign ping_clk1 = clk;
-    assign ping_csb1 = !(sa_rd_req && ping_active);        // Active for SA read requests
-    assign ping_addr1 = sa_rd_addr;  // SA read address
+    assign ping_csb1 = !(sa_rd_req && ping_active);       // Active for SA read requests
+    // Use input address when ready asserted, latched address when request is pending
+    assign ping_addr1 = (sa_rd_data_ready && !sa_rd_pending) ? sa_rd_addr : sa_rd_addr_latched;
     
     sky130_sram_1kbyte_1rw1r_32x256_8 ping_sram (
         .clk0   (ping_clk0),
@@ -135,18 +148,21 @@ module memory_controller #(
     // Port 0: Read/Write operations (RW)
     // Port 1: Read-only operations (R)
     
-    // Port 0 (RW): Used for writes and AGU reads
+    // Port 0 (R/W): Used for writes and AGU reads
     assign pong_clk0 = clk;
     assign pong_csb0 = !((wr_en_internal && !ping_write_active) || (agu_rd_req && !ping_active)); // Active for write OR AGU read request
     assign pong_web0 = !(wr_en_internal && !ping_write_active); // web0=0 for write, web0=1 for read
     assign pong_wmask0 = 4'b1111;                       // Enable all bytes
-    assign pong_addr0 = (wr_en_internal && !ping_write_active) ? wr_addr_internal : agu_rd_addr;  // Write addr or AGU read addr
+    // Use input address when ready asserted, latched address when request is pending
+    assign pong_addr0 = (wr_en_internal && !ping_write_active) ? wr_addr_internal : 
+                        (agu_rd_data_ready && !agu_rd_pending ? agu_rd_addr : agu_rd_addr_latched);
     assign pong_din0 = wr_data_internal;
     
     // Port 1 (Read-Only): Used for SA reads
     assign pong_clk1 = clk;
     assign pong_csb1 = !(sa_rd_req && !ping_active);       // Active for SA read requests
-    assign pong_addr1 = sa_rd_addr;  // SA read address
+    // Use input address when ready asserted, latched address when request is pending
+    assign pong_addr1 = (sa_rd_data_ready && !sa_rd_pending) ? sa_rd_addr : sa_rd_addr_latched;
     
     sky130_sram_1kbyte_1rw1r_32x256_8 pong_sram (
         .clk0   (pong_clk0),
@@ -191,11 +207,6 @@ module memory_controller #(
     // Path 3: SA → SRAM (Write) 
     // Path 4: SRAM → SA (Read)
     
-    reg [2:0] agu_rd_delay_count;  // 3-cycle read delay for SRAM
-    reg [2:0] sa_rd_delay_count;   // 3-cycle read delay for SRAM
-    reg agu_rd_pending;            // AGU read in progress
-    reg sa_rd_pending;             // SA read in progress
-    
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             agu_wr_ready <= 1'b0;
@@ -206,6 +217,8 @@ module memory_controller #(
             sa_rd_delay_count <= 3'd0;
             agu_rd_pending <= 1'b0;
             sa_rd_pending <= 1'b0;
+            agu_rd_addr_latched <= 8'd0;
+            sa_rd_addr_latched <= 8'd0;
         end
         else begin
             // Path 1: AGU Write Ready - SRAM ready when buffer not full and no SA write conflict
@@ -215,13 +228,15 @@ module memory_controller #(
             sa_wr_ready <= !wr_buffer_full && !agu_wr_valid;
             
             // Path 2: AGU Read Data Valid - Account for 3-cycle SRAM read latency
-            if (!agu_rd_pending && agu_rd_data_ready && !rd_buffer_empty) begin
-                // Start new read request
+            if (!agu_rd_pending && agu_rd_data_ready && !rd_buffer_empty && !agu_rd_data_valid) begin
+                // Start new read request - LATCH THE ADDRESS
+                // Only start if not already valid (prevents double-reads when ready stays high)
+                agu_rd_addr_latched <= agu_rd_addr;  // Hold address stable for entire read
                 agu_rd_pending <= 1'b1;
                 agu_rd_delay_count <= 3'd0;
                 agu_rd_data_valid <= 1'b0;
             end else if (agu_rd_pending) begin
-                // Continue counting delay for ongoing read
+                // Continue counting delay for ongoing read - keep address latched
                 if (agu_rd_delay_count < 3'd2) begin
                     agu_rd_delay_count <= agu_rd_delay_count + 1'b1;
                     agu_rd_data_valid <= 1'b0;
@@ -235,13 +250,15 @@ module memory_controller #(
             end
             
             // Path 4: SA Read Data Valid - Account for 3-cycle SRAM read latency
-            if (!sa_rd_pending && sa_rd_data_ready && !rd_buffer_empty) begin
-                // Start new read request
+            if (!sa_rd_pending && sa_rd_data_ready && !rd_buffer_empty && !sa_rd_data_valid) begin
+                // Start new read request - LATCH THE ADDRESS
+                // Only start if not already valid (prevents double-reads when ready stays high)
+                sa_rd_addr_latched <= sa_rd_addr;  // Hold address stable for entire read
                 sa_rd_pending <= 1'b1;
                 sa_rd_delay_count <= 3'd0;
                 sa_rd_data_valid <= 1'b0;
             end else if (sa_rd_pending) begin
-                // Continue counting delay for ongoing read
+                // Continue counting delay for ongoing read - keep address latched
                 if (sa_rd_delay_count < 3'd2) begin
                     sa_rd_delay_count <= sa_rd_delay_count + 1'b1;
                     sa_rd_data_valid <= 1'b0;
