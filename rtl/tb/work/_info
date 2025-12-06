@@ -1,0 +1,143 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb
+vagu
+Z1 !s110 1764966047
+!i10b 1
+!s100 maP4iEiTEiD@n^CYOLW;k3
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I[<9bnmO5E74084GfQmbn23
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1764964039
+8../AGU/agu.v
+F../AGU/agu.v
+!i122 20
+L0 17 363
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1764966047.000000
+!s107 ../AGU/data_loader.v|../AGU/agu.v|
+Z6 !s90 ../AGU/agu.v|../AGU/data_loader.v|
+!i113 1
+Z7 tCvgOpt 0
+vdata_loader
+R1
+!i10b 1
+!s100 6?8XzfgmZW?G7kJK=HzO?2
+R2
+I<YkHg[iV^R3iRWWked5nn3
+R3
+R0
+w1764962968
+8../AGU/data_loader.v
+F../AGU/data_loader.v
+!i122 20
+L0 15 360
+R4
+r1
+!s85 0
+31
+R5
+Z8 !s107 ../AGU/data_loader.v|../AGU/agu.v|
+R6
+!i113 1
+R7
+vdram
+R1
+!i10b 1
+!s100 ScmhmB1AG`385djTNBnFH0
+R2
+IDZgScWG8M:1>Ibzoc0[YK3
+R3
+R0
+w1764960551
+8../mem/dram.v
+F../mem/dram.v
+!i122 19
+L0 15 287
+R4
+r1
+!s85 0
+31
+R5
+Z9 !s107 ../../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v|../mem/sram.v|../mem/dram.v|
+Z10 !s90 ../mem/dram.v|../mem/sram.v|../../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v|
+!i113 1
+R7
+vsky130_sram_1kbyte_1rw1r_32x256_8
+R1
+!i10b 1
+!s100 YSlVOi6mnz`;5>`R=fnZk2
+R2
+IVhF9UUb<6^k?hO_H`>=E60
+R3
+R0
+w1764855380
+8../../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v
+F../../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v
+!i122 19
+L0 9 114
+R4
+r1
+!s85 0
+31
+R5
+R9
+R10
+!i113 1
+R7
+vsram
+R1
+!i10b 1
+!s100 ^nQjVL6c<2M`Wj]f_dO]o0
+R2
+IlPmAG<:`1moe5emmdl?WT1
+R3
+R0
+w1764964552
+8../mem/sram.v
+F../mem/sram.v
+!i122 19
+L0 14 428
+R4
+r1
+!s85 0
+31
+R5
+R9
+R10
+!i113 1
+R7
+vtb_dram
+!s110 1764960636
+!i10b 1
+!s100 C3IR>X=1<`P0j_UZeE<AV0
+R2
+I1]f0=@S;:lG]l?27`7=cA2
+R3
+R0
+w1764960553
+8tb_dram.v
+Ftb_dram.v
+!i122 8
+L0 13 350
+R4
+r1
+!s85 0
+31
+!s108 1764960636.000000
+!s107 tb_dram.v|
+!s90 -reportprogress|300|-work|work|tb_dram.v|
+!i113 1
+o-work work
+R7

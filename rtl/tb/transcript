@@ -1,7 +1,94 @@
-# vsim -c -do "run 20000ns; quit" tb_systolic_array 
-# Start time: 19:17:17 on Nov 29,2025
-# ** Error (suppressible): (vsim-19) Failed to access library 'work' at "work".
-# No such file or directory. (errno = ENOENT)
+# vsim tb_agu_dataloader 
+# Start time: 22:20:56 on Dec 05,2025
+# ** Error: (vsim-3170) Could not find 'tb_agu_dataloader'.
+#         Searched libraries:
+#             D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/work
 # Error loading design
-# End time: 19:17:18 on Nov 29,2025, Elapsed time: 0:00:01
+# End time: 22:20:57 on Dec 05,2025, Elapsed time: 0:00:01
 # Errors: 1, Warnings: 0
+# Loading project simulation
+# Compile of tb_agu_dataloader_real.v was successful.
+# Compile of dram.v was successful.
+# Compile of sram.v was successful.
+# Compile of Agu.v was successful.
+# Compile of data_loader.v was successful.
+# Compile of sky130_sram_1kbyte_1rw1r_32x256_8.v was successful.
+# 6 compiles, 0 failed with no errors.
+vsim work.tb_agu_dataloader_real
+# vsim work.tb_agu_dataloader_real 
+# Start time: 22:24:23 on Dec 05,2025
+# Loading sv_std.std
+# Loading work.tb_agu_dataloader_real
+# Loading work.dram
+# Loading work.sram
+# Loading work.sky130_sram_1kbyte_1rw1r_32x256_8
+# Loading work.data_loader
+# Loading work.agu
+# ** Warning: (vsim-3015) [PCDPC] - Port size (32) does not match connection size (8) for port 'sa_wr_data'. The port definition is at: D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/mem/sram.v(46).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_agu_dataloader_real/sram_inst File: D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/tb_agu_dataloader_real.v Line: 142
+run -all
+# 
+# ========================================
+# === AGU and Data Loader Real Data Test ===
+# ========================================
+# Configuration:
+#   Image Size: 32x32
+#   Kernel Size: 3x3
+#   Array Size: 8x8
+#   Number of Tiles: 4x4
+# 
+# Loading input image from: ./input_matrix.txt
+# ** Warning: (vsim-3534) [FOFIR] - Failed to open file "./input_matrix.txt" for reading.
+# No such file or directory. (errno = ENOENT)    : D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/tb_agu_dataloader_real.v(246)
+#    Time: 0 ps  Iteration: 0  Instance: /tb_agu_dataloader_real
+# ERROR: Cannot open input file: ./input_matrix.txt
+# ** Note: $finish    : D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/tb_agu_dataloader_real.v(249)
+#    Time: 0 ps  Iteration: 0  Instance: /tb_agu_dataloader_real
+# 1
+# Break in Task load_input_image at D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/tb_agu_dataloader_real.v line 249
+quit -sim
+# End time: 22:26:05 on Dec 05,2025, Elapsed time: 0:01:42
+# Errors: 0, Warnings: 12
+# Compile of tb_agu_dataloader_real.v was successful.
+# Compile of dram.v was successful.
+# Compile of sram.v was successful.
+# Compile of Agu.v was successful.
+# Compile of data_loader.v was successful.
+# Compile of sky130_sram_1kbyte_1rw1r_32x256_8.v was successful.
+# 6 compiles, 0 failed with no errors.
+vsim work.tb_agu_dataloader_real
+# vsim work.tb_agu_dataloader_real 
+# Start time: 22:27:17 on Dec 05,2025
+# Loading sv_std.std
+# Loading work.tb_agu_dataloader_real
+# Loading work.dram
+# Loading work.sram
+# Loading work.sky130_sram_1kbyte_1rw1r_32x256_8
+# Loading work.data_loader
+# Loading work.agu
+# ** Warning: (vsim-3015) [PCDPC] - Port size (32) does not match connection size (8) for port 'sa_wr_data'. The port definition is at: D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/mem/sram.v(46).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_agu_dataloader_real/sram_inst File: D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/tb_agu_dataloader_real.v Line: 142
+run -all
+# 
+# ========================================
+# === AGU and Data Loader Real Data Test ===
+# ========================================
+# Configuration:
+#   Image Size: 32x32
+#   Kernel Size: 3x3
+#   Array Size: 8x8
+#   Number of Tiles: 4x4
+# 
+# Loading input image from: ./input_matrix.txt
+# Break key hit
+# Break in Task load_input_image at D:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/rtl/tb/tb_agu_dataloader_real.v line 253
+4
+# [4]
+
+
+
+
+
+
+
+# Break key hit

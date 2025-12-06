@@ -11,10 +11,11 @@
 // - Each SRAM: 256 words x 32 bits
 // - Supports up to 2KB total buffered data
 
-module memory_controller #(
+module sram #(
     parameter DATA_WIDTH = 32,      // Width of data bus to/from systolic array
     parameter ADDR_WIDTH = 8,       // Address width for SRAM (256 locations)
-    parameter ARRAY_SIZE = 8        // Size of systolic array (8x8)
+    parameter ARRAY_SIZE = 8,       // Size of systolic array (8x8)
+    parameter DRAM_WIDTH = 32       // External DRAM bus width (8/16/32)
 )(
     // System signals
     input  wire                     clk,
@@ -51,7 +52,13 @@ module memory_controller #(
     input  wire [ADDR_WIDTH-1:0]    sa_rd_addr,
     output reg  [DATA_WIDTH-1:0]    sa_rd_data,
     
-    output wire                     rd_buffer_empty // Current read buffer is empty
+    output wire                     rd_buffer_empty,
+    input  wire [DRAM_WIDTH-1:0]    rx_data,
+    input  wire                     rx_valid,
+    output reg                      rx_ready,
+    output reg  [DRAM_WIDTH-1:0]    tx_data,
+    output reg                      tx_valid,
+    input  wire                     tx_ready
 );
 
     // Ping-Pong buffer state
@@ -77,6 +84,21 @@ module memory_controller #(
     wire [ADDR_WIDTH-1:0] pong_addr1;
     wire [DATA_WIDTH-1:0] pong_dout1;
 
+    localparam integer CHUNKS = (32/DRAM_WIDTH);
+    reg [DATA_WIDTH-1:0] rx_assem_word;
+    reg [DATA_WIDTH-1:0] rx_assem_next;
+    reg [1:0] rx_chunk_idx;
+    reg dram_wr_pending;
+    reg [ADDR_WIDTH-1:0] dram_wr_addr;
+    reg [DATA_WIDTH-1:0] dram_wr_data;
+    reg [DATA_WIDTH-1:0] tx_word;
+    reg [1:0] tx_chunk_idx;
+    reg tx_have_word;
+    reg [ADDR_WIDTH-1:0] tx_rd_addr;
+    reg [ADDR_WIDTH-1:0] tx_words_sent;
+    reg [2:0] tx_rd_delay_count;
+    reg tx_rd_pending;
+
     // Buffer status for DRAM
     assign wr_buffer_full = ping_write_active ? 
                            (ping_wr_count >= 8'd255) : 
@@ -93,9 +115,14 @@ module memory_controller #(
     // Port 1: Read-only operations (R)
     
     // Write can come from AGU or Systolic Array
-    wire wr_en_internal = (agu_wr_valid && agu_wr_ready) || (sa_wr_valid && sa_wr_ready);
-    wire [ADDR_WIDTH-1:0] wr_addr_internal = (agu_wr_valid && agu_wr_ready) ? agu_wr_addr : sa_wr_addr;
-    wire [DATA_WIDTH-1:0] wr_data_internal = (agu_wr_valid && agu_wr_ready) ? agu_wr_data : sa_wr_data;
+    wire sa_can_write = sa_wr_valid && sa_wr_ready;
+    wire agu_can_write = agu_wr_valid && agu_wr_ready;
+    wire wr_from_sa = sa_can_write;
+    wire wr_from_agu = !sa_can_write && agu_can_write;
+    wire wr_from_dram = !sa_can_write && !agu_can_write && dram_wr_pending;
+    wire wr_en_internal = wr_from_sa || wr_from_agu || wr_from_dram;
+    wire [ADDR_WIDTH-1:0] wr_addr_internal = wr_from_dram ? dram_wr_addr : (wr_from_agu ? agu_wr_addr : sa_wr_addr);
+    wire [DATA_WIDTH-1:0] wr_data_internal = wr_from_dram ? dram_wr_data : (wr_from_agu ? agu_wr_data : sa_wr_data);
     
     // Read can go to AGU or Systolic Array
     // Use Port 0 for AGU reads, Port 1 for SA reads (simultaneous)
@@ -112,8 +139,9 @@ module memory_controller #(
     
     // Port 1 (Read-Only): Used for SA reads
     assign ping_clk1 = clk;
-    assign ping_csb1 = !(sa_rd_req && ping_active);        // Active for SA read requests
-    assign ping_addr1 = sa_rd_addr;  // SA read address
+    wire tx_port1_grant = tx_rd_pending && !sa_rd_req;
+    assign ping_csb1 = !(((sa_rd_req) && ping_active) || ((tx_port1_grant) && ping_active));
+    assign ping_addr1 = sa_rd_req ? sa_rd_addr : tx_rd_addr;  // SA read address or TX address
     
     sky130_sram_1kbyte_1rw1r_32x256_8 ping_sram (
         .clk0   (ping_clk0),
@@ -145,8 +173,8 @@ module memory_controller #(
     
     // Port 1 (Read-Only): Used for SA reads
     assign pong_clk1 = clk;
-    assign pong_csb1 = !(sa_rd_req && !ping_active);       // Active for SA read requests
-    assign pong_addr1 = sa_rd_addr;  // SA read address
+    assign pong_csb1 = !(((sa_rd_req) && !ping_active) || ((tx_port1_grant) && !ping_active));
+    assign pong_addr1 = sa_rd_req ? sa_rd_addr : tx_rd_addr;  // SA read address or TX address
     
     sky130_sram_1kbyte_1rw1r_32x256_8 pong_sram (
         .clk0   (pong_clk0),
@@ -213,6 +241,7 @@ module memory_controller #(
             
             // Path 3: SA Write Ready - SRAM ready when buffer not full and no AGU write conflict
             sa_wr_ready <= !wr_buffer_full && !agu_wr_valid;
+            rx_ready <= ready && !wr_buffer_full && !dram_wr_pending;
             
             // Path 2: AGU Read Data Valid - Account for 3-cycle SRAM read latency
             if (!agu_rd_pending && agu_rd_data_ready && !rd_buffer_empty) begin
@@ -253,6 +282,62 @@ module memory_controller #(
             end else begin
                 sa_rd_data_valid <= 1'b0;
             end
+
+            if (rx_valid && rx_ready) begin
+                if (rx_chunk_idx == 2'd0) begin
+                    rx_assem_next <= {{(DATA_WIDTH-DRAM_WIDTH){1'b0}}, rx_data};
+                end else begin
+                    rx_assem_next <= rx_assem_word | ({{(DATA_WIDTH-DRAM_WIDTH){1'b0}}, rx_data} << (rx_chunk_idx*DRAM_WIDTH));
+                end
+                
+                if (rx_chunk_idx == (CHUNKS-1)) begin
+                    rx_assem_word <= rx_assem_next;
+                    dram_wr_pending <= 1'b1;
+                    dram_wr_data <= rx_assem_next;
+                    dram_wr_addr <= ping_write_active ? ping_wr_count : pong_wr_count;
+                    rx_chunk_idx <= 2'd0;
+                end else begin
+                    rx_chunk_idx <= rx_chunk_idx + 1'b1;
+                    rx_assem_word <= (rx_assem_next);
+                end
+            end
+
+            if (wr_en_internal && wr_from_dram) begin
+                dram_wr_pending <= 1'b0;
+            end
+
+            if (!tx_rd_pending && !tx_have_word) begin
+                if ((ping_active ? ping_wr_count : pong_wr_count) > tx_words_sent) begin
+                    if (!sa_rd_pending && !sa_rd_data_ready && !sa_rd_req) begin
+                        tx_rd_pending <= 1'b1;
+                        tx_rd_delay_count <= 3'd0;
+                    end
+                end
+            end else if (tx_rd_pending) begin
+                if (tx_rd_delay_count < 3'd2) begin
+                    tx_rd_delay_count <= tx_rd_delay_count + 1'b1;
+                end else begin
+                    tx_word <= ping_active ? ping_dout1 : pong_dout1;
+                    tx_have_word <= 1'b1;
+                    tx_valid <= 1'b1;
+                    tx_chunk_idx <= 2'd0;
+                    tx_data <= (ping_active ? ping_dout1 : pong_dout1) & {{(DATA_WIDTH-DRAM_WIDTH){1'b0}}, {DRAM_WIDTH{1'b1}}};
+                    tx_rd_pending <= 1'b0;
+                end
+            end
+
+            if (tx_valid && tx_ready) begin
+                if (tx_chunk_idx < (CHUNKS-1)) begin
+                    tx_chunk_idx <= tx_chunk_idx + 1'b1;
+                    tx_data <= (tx_word >> ((tx_chunk_idx+1)*DRAM_WIDTH));
+                end else begin
+                    tx_valid <= 1'b0;
+                    tx_have_word <= 1'b0;
+                    tx_chunk_idx <= 2'd0;
+                    tx_words_sent <= tx_words_sent + 1'b1;
+                    tx_rd_addr <= tx_rd_addr + 1'b1;
+                end
+            end
         end
     end
     
@@ -266,6 +351,22 @@ module memory_controller #(
             ping_wr_count <= 8'd0;
             pong_wr_count <= 8'd0;
             ready <= 1'b0;
+            rx_ready <= 1'b0;
+            rx_chunk_idx <= 2'd0;
+            rx_assem_word <= {DATA_WIDTH{1'b0}};
+            rx_assem_next <= {DATA_WIDTH{1'b0}};
+            dram_wr_pending <= 1'b0;
+            dram_wr_addr <= {ADDR_WIDTH{1'b0}};
+            dram_wr_data <= {DATA_WIDTH{1'b0}};
+            tx_word <= {DATA_WIDTH{1'b0}};
+            tx_chunk_idx <= 2'd0;
+            tx_have_word <= 1'b0;
+            tx_rd_addr <= {ADDR_WIDTH{1'b0}};
+            tx_words_sent <= {ADDR_WIDTH{1'b0}};
+            tx_rd_delay_count <= 3'd0;
+            tx_rd_pending <= 1'b0;
+            tx_valid <= 1'b0;
+            tx_data <= {DRAM_WIDTH{1'b0}};
         end
         else begin
             if (start) begin // data is valid
@@ -295,6 +396,8 @@ module memory_controller #(
                     ping_wr_count <= 8'd0;
                 else
                     pong_wr_count <= 8'd0;
+                tx_rd_addr <= {ADDR_WIDTH{1'b0}};
+                tx_words_sent <= {ADDR_WIDTH{1'b0}};
             end
         end
     end

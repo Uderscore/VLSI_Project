@@ -9,6 +9,7 @@ module tb_memory_controller;
     parameter DATA_WIDTH = 32;
     parameter ADDR_WIDTH = 8;
     parameter ARRAY_SIZE = 8;
+    parameter DRAM_WIDTH = 8;
     parameter CLK_PERIOD = 10; // 100MHz clock
 
     // DUT signals
@@ -45,6 +46,12 @@ module tb_memory_controller;
     wire [DATA_WIDTH-1:0]   sa_rd_data;
     
     wire                    rd_buffer_empty;
+    reg  [DRAM_WIDTH-1:0]   rx_data;
+    reg                     rx_valid;
+    wire                    rx_ready;
+    wire [DRAM_WIDTH-1:0]   tx_data;
+    wire                    tx_valid;
+    reg                     tx_ready;
     
     // Test variables
     reg [DATA_WIDTH-1:0] test_data;
@@ -55,10 +62,11 @@ module tb_memory_controller;
     //==========================================================================
     // DUT Instantiation
     //==========================================================================
-    memory_controller #(
+    sram #(
         .DATA_WIDTH(DATA_WIDTH),
         .ADDR_WIDTH(ADDR_WIDTH),
-        .ARRAY_SIZE(ARRAY_SIZE)
+        .ARRAY_SIZE(ARRAY_SIZE),
+        .DRAM_WIDTH(DRAM_WIDTH)
     ) dut (
         .clk(clk),
         .rst_n(rst_n),
@@ -83,7 +91,13 @@ module tb_memory_controller;
         .sa_rd_data_valid(sa_rd_data_valid),
         .sa_rd_addr(sa_rd_addr),
         .sa_rd_data(sa_rd_data),
-        .rd_buffer_empty(rd_buffer_empty)
+        .rd_buffer_empty(rd_buffer_empty),
+        .rx_data(rx_data),
+        .rx_valid(rx_valid),
+        .rx_ready(rx_ready),
+        .tx_data(tx_data),
+        .tx_valid(tx_valid),
+        .tx_ready(tx_ready)
     );
 
     //==========================================================================
@@ -113,6 +127,9 @@ module tb_memory_controller;
         sa_rd_data_ready = 0;
         sa_rd_addr = 0;
         errors = 0;
+        rx_data = 0;
+        rx_valid = 0;
+        tx_ready = 1;
         
         // Display test start
         $display("========================================");

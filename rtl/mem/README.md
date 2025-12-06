@@ -2,7 +2,43 @@
 
 ## Overview
 
-This implementation provides efficient memory management for a systolic array accelerator using **Sky130 SRAM macros** with a **ping-pong buffering** scheme. This ensures continuous data flow to keep the systolic array active while managing data movement efficiently.
+This implementation provides efficient memory management for a systolic array accelerator using **Sky130 SRAM macros** with a **ping-pong buffering** scheme, along with a **DRAM module** for external memory interface. This ensures continuous data flow to keep the systolic array active while managing data movement efficiently.
+
+## DRAM Module
+
+The DRAM module simulates external off-chip memory with a streaming interface using valid/ready handshake protocol.
+
+### Key Features
+
+- **Streaming Interface**: Valid/Ready handshake for flow control
+- **Configurable Bus Width**: 8, 16, or 32-bit data buses
+- **Separate RX/TX Streams**: Independent read and write channels
+- **Large Address Space**: Up to 1MB addressable memory
+- **File-Based Initialization**: Load input/kernel from files
+
+### Interface Signals
+
+**RX Stream (DRAM → Accelerator)**
+
+- `rx_data[DATA_WIDTH-1:0]` - Data from DRAM
+- `rx_valid` - DRAM has valid data
+- `rx_ready` - Accelerator ready to accept
+
+**TX Stream (Accelerator → DRAM)**
+
+- `tx_data[DATA_WIDTH-1:0]` - Data to DRAM
+- `tx_valid` - Accelerator has valid data
+- `tx_ready` - DRAM ready to accept
+
+**Control**
+
+- `read_addr[ADDR_WIDTH-1:0]` - Read start address
+- `read_enable` - Start read transaction
+- `write_addr[ADDR_WIDTH-1:0]` - Write start address
+- `write_enable` - Start write transaction
+- `transfer_length[15:0]` - Number of words to transfer
+
+See [`dram.v`](dram.v) for full implementation and [`tb_dram.v`](../tb/tb_dram.v) for testbench.
 
 ## Architecture
 
