@@ -10,114 +10,71 @@ z2
 cModel Technology
 Z0 dC:/Users/ASUS/Desktop/SWE_Ass/VLSI_Project/sim
 vprocessing_element
-Z1 !s110 1764442951
+Z1 !s110 1765405430
 !i10b 1
 !s100 R`ERT0BX46df7le9;T4NN3
 Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I_UbYa1fX_WHeb=GY@1AZ61
+I0E9zL?=_CIY68MJj3bj`>3
 Z3 VDg1SIo80bB@j0V0VzS_@n1
 R0
 w1764432348
 8../rtl/core/processing_element.v
 F../rtl/core/processing_element.v
-!i122 76
+!i122 0
 L0 1 69
 Z4 OV;L;2020.1;71
 r1
 !s85 0
 31
-!s108 1764442950.000000
+Z5 !s108 1765405430.000000
 !s107 ../rtl/core/processing_element.v|
-!s90 -reportprogress|300|../rtl/core/processing_element.v|
+!s90 -reportprogress|300|-work|work|../rtl/core/processing_element.v|
 !i113 1
-Z5 tCvgOpt 0
+Z6 o-work work
+Z7 tCvgOpt 0
 vsystolic_array
 R1
 !i10b 1
-!s100 LCLCYda`f=jcBZD3gHdD[2
+!s100 X7Me84^;BYZffl;^eU?HH0
 R2
-IEH<gok`o`@KcWj?90FaFZ0
+ImmB074<TiBj=?aM[m<c>W0
 R3
 R0
-w1764434025
+w1765405106
 8../rtl/core/systolic_array.v
 F../rtl/core/systolic_array.v
-!i122 77
-L0 1 87
+!i122 1
+L0 1 213
 R4
 r1
 !s85 0
 31
-Z6 !s108 1764442951.000000
+R5
 !s107 ../rtl/core/systolic_array.v|
-!s90 -reportprogress|300|../rtl/core/systolic_array.v|
+!s90 -reportprogress|300|-work|work|../rtl/core/systolic_array.v|
 !i113 1
-R5
-vtb_systolic_array
-Z7 !s110 1764441453
-!i10b 1
-!s100 K[ABJ:emB9UUg42Dz>GVn2
-R2
-IoQ>TA8SeJ[mB`cZ[YSo_M0
-R3
-R0
-w1764434996
-8../rtl/tb/tb_systolic_array.v
-F../rtl/tb/tb_systolic_array.v
-!i122 74
-L0 3 212
-R4
-r1
-!s85 0
-31
-Z8 !s108 1764441453.000000
-!s107 ../rtl/tb/tb_systolic_array.v|
-!s90 -work|work|../rtl/tb/tb_systolic_array.v|
-!i113 1
-Z9 o-work work
-R5
-vtb_systolic_array_2
+R6
 R7
-!i10b 1
-!s100 bfezHn<]Ro>Gb9AX]VRed0
-R2
-I]_0^SiXTGj;ZVb;Q2>zJB2
-R3
-R0
-w1764441205
-8../rtl/tb/tb_systolic_array_2.v
-F../rtl/tb/tb_systolic_array_2.v
-!i122 75
-L0 3 227
-R4
-r1
-!s85 0
-31
-R8
-!s107 ../rtl/tb/tb_systolic_array_2.v|
-!s90 -work|work|../rtl/tb/tb_systolic_array_2.v|
-!i113 1
-R9
-R5
-vtb_systolic_array_stage1
+vtb_systolic_array_handshake
 R1
 !i10b 1
-!s100 hiljRiW0=HLRKiBHiU<z`1
+!s100 n[MVmR8E6ajeFRL3G0Lef1
 R2
-Ii1aLJ3k<[`m?c@;]:I;YE1
+I<mf`P6^1KMdIjWR7?gLTg0
 R3
 R0
-w1764442769
-8../rtl/tb/tb_systolic_array_stage1.v
-F../rtl/tb/tb_systolic_array_stage1.v
-!i122 78
-L0 14 137
+w1765405186
+8../rtl/tb/tb_systolic_array_handshake.v
+F../rtl/tb/tb_systolic_array_handshake.v
+!i122 2
+L0 13 378
 R4
 r1
 !s85 0
 31
-R6
-!s107 ../rtl/tb/tb_systolic_array_stage1.v|
-!s90 -reportprogress|300|../rtl/tb/tb_systolic_array_stage1.v|
-!i113 1
 R5
+!s107 ../rtl/tb/tb_systolic_array_handshake.v|
+!s90 -reportprogress|300|-work|work|../rtl/tb/tb_systolic_array_handshake.v|
+!i113 1
+R6
+R7
