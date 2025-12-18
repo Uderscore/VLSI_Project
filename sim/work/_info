@@ -8,148 +8,50 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/ASUS/Desktop/SWE_Ass/VLSI_Project/sim
-vaccelerator_integration
-Z1 !s110 1766061038
+Z0 dD:/ThirdYear/FirstTerm/VLSI/Project/VLSI_Project/sim
+vcontrol_unit
+Z1 !s110 1766085339
 !i10b 1
-!s100 CY_d`DnCGA5TKb:bLH2hN3
+!s100 BmD?0<QPYJEYIV4Y4_jE43
 Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
-IQUKFaBY1LK=FKBSARP]]?2
+I26e2T;CA2da>f<9JG[XbO1
 Z3 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1766049898
-8../rtl/accelerator_integration.v
-F../rtl/accelerator_integration.v
-!i122 9
-L0 18 367
+w1766085238
+8../rtl/control/control_unit.v
+F../rtl/control/control_unit.v
+!i122 0
+L0 17 474
 Z4 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z5 !s108 1766061038.000000
-!s107 ../rtl/accelerator_integration.v|
-!s90 -reportprogress|300|-work|work|+define+SIMULATION|../rtl/accelerator_integration.v|
+Z5 !s108 1766085339.000000
+!s107 ../rtl/control/control_unit.v|
+!s90 -reportprogress|300|-work|work|../rtl/control/control_unit.v|
 !i113 1
 Z6 o-work work
-Z7 !s92 -work work +define+SIMULATION
-Z8 tCvgOpt 0
-vmemory_controller
+Z7 tCvgOpt 0
+vtb_control_unit
 R1
 !i10b 1
-!s100 K[8JQEcm:hZ]82llg4KB93
+!s100 L_@1Sn5E65oanP:Ynl`Rl1
 R2
-II32V48IY>>QBUiA?fz1m60
+I=Wo>jB9d2aiP:nnCaA]JV2
 R3
 R0
-w1765037148
-8../rtl/mem/memory_controller.v
-F../rtl/mem/memory_controller.v
-!i122 7
-L0 14 342
-R4
-r1
-!s85 0
-31
-R5
-!s107 ../rtl/mem/memory_controller.v|
-!s90 -reportprogress|300|-work|work|+define+SIMULATION|../rtl/mem/memory_controller.v|
-!i113 1
-R6
-R7
-R8
-vprocessing_element
-Z9 !s110 1766061037
-!i10b 1
-!s100 R`ERT0BX46df7le9;T4NN3
-R2
-IAF@nQL8@n<XGfm@]j:YbH3
-R3
-R0
-w1764432348
-8../rtl/core/processing_element.v
-F../rtl/core/processing_element.v
+w1766085286
+8../rtl/tb/tb_control_unit.v
+F../rtl/tb/tb_control_unit.v
 !i122 1
-L0 1 69
-R4
-r1
-!s85 0
-31
-Z10 !s108 1766061037.000000
-!s107 ../rtl/core/processing_element.v|
-!s90 -reportprogress|300|-work|work|+define+SIMULATION|../rtl/core/processing_element.v|
-!i113 1
-R6
-R7
-R8
-vsky130_sram_1kbyte_1rw1r_32x256_8
-R1
-!i10b 1
-!s100 YSlVOi6mnz`;5>`R=fnZk2
-R2
-IPE>@e>2_NT50YI<E8mNZC0
-R3
-R0
-w1764867207
-8../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v
-F../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v
-!i122 5
-L0 9 114
+L0 15 386
 R4
 r1
 !s85 0
 31
 R5
-!s107 ../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v|
-!s90 -reportprogress|300|-work|work|+define+SIMULATION|../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v|
+!s107 ../rtl/tb/tb_control_unit.v|
+!s90 -reportprogress|300|-work|work|../rtl/tb/tb_control_unit.v|
 !i113 1
 R6
 R7
-R8
-vsystolic_array
-R9
-!i10b 1
-!s100 XV;A<3L9zl20:Z>WAdbjL2
-R2
-Im0l;G44PSF0k_aS8=86_f2
-R3
-R0
-w1765405106
-8../rtl/core/systolic_array.v
-F../rtl/core/systolic_array.v
-!i122 3
-L0 1 213
-R4
-r1
-!s85 0
-31
-R10
-!s107 ../rtl/core/systolic_array.v|
-!s90 -reportprogress|300|-work|work|+define+SIMULATION|../rtl/core/systolic_array.v|
-!i113 1
-R6
-R7
-R8
-vtb_accelerator_integration
-R1
-!i10b 1
-!s100 DYMkiY7OKL5Pf00DRB^oR2
-R2
-INHfG9?TZjn`P04o8HSYL>2
-R3
-R0
-w1766049947
-8../rtl/tb/tb_accelerator_integration.v
-F../rtl/tb/tb_accelerator_integration.v
-!i122 11
-L0 17 548
-R4
-r1
-!s85 0
-31
-R5
-!s107 ../rtl/tb/tb_accelerator_integration.v|
-!s90 -reportprogress|300|-work|work|+define+SIMULATION|../rtl/tb/tb_accelerator_integration.v|
-!i113 1
-R6
-R7
-R8

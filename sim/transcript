@@ -1,236 +1,66 @@
-# do {.\run_integration.do}
-# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
-# vmap work work 
-# Modifying modelsim.ini
-# +define+SIMULATION
-# ==========================================
-# Compiling RTL Files...
-# ==========================================
+# do run_tb_control_unit.do
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:37 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/core/processing_element.v 
-# -- Compiling module processing_element
+# Start time: 21:15:39 on Dec 18,2025
+# vlog -reportprogress 300 -work work ../rtl/control/control_unit.v 
+# -- Compiling module control_unit
 # 
 # Top level modules:
-# 	processing_element
-# End time: 14:30:37 on Dec 18,2025, Elapsed time: 0:00:00
+# 	control_unit
+# End time: 21:15:39 on Dec 18,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:37 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/core/processing_element.v 
-# -- Compiling module processing_element
+# Start time: 21:15:39 on Dec 18,2025
+# vlog -reportprogress 300 -work work ../rtl/tb/tb_control_unit.v 
+# -- Compiling module tb_control_unit
 # 
 # Top level modules:
-# 	processing_element
-# End time: 14:30:37 on Dec 18,2025, Elapsed time: 0:00:00
+# 	tb_control_unit
+# End time: 21:15:39 on Dec 18,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:37 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/core/systolic_array.v 
-# -- Compiling module systolic_array
+# vsim -voptargs="+acc" work.tb_control_unit 
+# Start time: 21:15:39 on Dec 18,2025
+# Loading work.tb_control_unit
+# Loading work.control_unit
+# ========================================
+# Control Unit Testbench Starting
+# ========================================
 # 
-# Top level modules:
-# 	systolic_array
-# End time: 14:30:37 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:37 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/core/systolic_array.v 
-# -- Compiling module systolic_array
+# --- Test 1: Reset Behavior ---
+# Test 1: PASS - Reset correctly initialized outputs
 # 
-# Top level modules:
-# 	systolic_array
-# End time: 14:30:37 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:37 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v 
-# -- Compiling module sky130_sram_1kbyte_1rw1r_32x256_8
+# --- Test 2: Configuration Latching ---
+# Test 2: PASS - Configuration latched (N=32, K=5)
 # 
-# Top level modules:
-# 	sky130_sram_1kbyte_1rw1r_32x256_8
-# End time: 14:30:37 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v 
-# -- Compiling module sky130_sram_1kbyte_1rw1r_32x256_8
+# --- Test 3: State Transition to LOAD ---
+# Test 3: PASS - Entered LOAD state with correct AGU mode
 # 
-# Top level modules:
-# 	sky130_sram_1kbyte_1rw1r_32x256_8
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/mem/memory_controller.v 
-# -- Compiling module memory_controller
+# --- Test 4: AGU Start Signal ---
+# Test 4: PASS - AGU start signal was pulsed
 # 
-# Top level modules:
-# 	memory_controller
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/mem/memory_controller.v 
-# -- Compiling module memory_controller
+# --- Test 5: LOAD to COMPUTE Transition ---
+# Test 5: PASS - Transitioned to COMPUTE state
 # 
-# Top level modules:
-# 	memory_controller
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/accelerator_integration.v 
-# -- Compiling module accelerator_integration
+# --- Test 6: COMPUTE to DRAIN Transition ---
+# Test 6: PASS - Transitioned to DRAIN state
 # 
-# Top level modules:
-# 	accelerator_integration
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/accelerator_integration.v 
-# -- Compiling module accelerator_integration
+# --- Test 7: DRAIN to DONE Transition ---
+# Test 7: PASS - Transitioned to DONE state
 # 
-# Top level modules:
-# 	accelerator_integration
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/tb/tb_accelerator_integration.v 
-# -- Compiling module tb_accelerator_integration
-# 
-# Top level modules:
-# 	tb_accelerator_integration
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:30:38 on Dec 18,2025
-# vlog -reportprogress 300 -work work "+define+SIMULATION" ../rtl/tb/tb_accelerator_integration.v 
-# -- Compiling module tb_accelerator_integration
-# 
-# Top level modules:
-# 	tb_accelerator_integration
-# End time: 14:30:38 on Dec 18,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# ==========================================
-# Compilation Successful!
-# ==========================================
-# vsim -voptargs="+acc" work.tb_accelerator_integration 
-# Start time: 14:30:38 on Dec 18,2025
-# Loading work.tb_accelerator_integration
-# Loading work.accelerator_integration
-# Loading work.memory_controller
-# Loading work.sky130_sram_1kbyte_1rw1r_32x256_8
-# Loading work.systolic_array
-# Loading work.processing_element
-# ==========================================
-# Configuring Wave Window...
-# ==========================================
-# ==========================================
-# Starting Simulation...
-# ==========================================
-# 
-# 
-# ================================================================================
-#         ACCELERATOR INTEGRATION TESTBENCH
-# ================================================================================
-# Testing integration of Memory Controller + Systolic Array
-# ================================================================================
-# 
+# --- Test 8: Return to IDLE ---
+# Test 8: PASS - Returned to IDLE state
 # 
 # ========================================
-# TEST 1: Basic Data Flow
+# Control Unit Testbench Results
 # ========================================
-# Time 0: Applying reset...
-# Time 5000: WARNING - Read buffer empty!
-# Time 15000: WARNING - Read buffer empty!
-# Time 25000: WARNING - Read buffer empty!
-# Time 35000: WARNING - Read buffer empty!
-# Time 45000: WARNING - Read buffer empty!
-# Time 55000: WARNING - Read buffer empty!
-# Time 65000: WARNING - Read buffer empty!
-# Time 65000: Reset complete
-# Time 65000: Loading test data into arrays...
-# Time 65000: Test data loaded
-# Time 65000: TEST - Loading input data to memory
-# Time 75000: WARNING - Read buffer empty!
-# Time 85000: AGU→SRAM Write: addr=0x00, data=0x03020100
-# Time 85000: WARNING - Read buffer empty!
-# Time 85000:   Loaded word 0: 0x03020100
-#                   86 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000000 din0=03020100 wmask0=1111
-# Time 95000: AGU→SRAM Write: addr=0x01, data=0x03020100
-# Time 95000: WARNING - Read buffer empty!
-#                   96 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000001 din0=03020100 wmask0=1111
-# Time 105000: AGU→SRAM Write: addr=0x02, data=0x07060504
-# Time 105000: WARNING - Read buffer empty!
-# Time 105000:   Loaded word 1: 0x07060504
-#                  106 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000010 din0=07060504 wmask0=1111
-# Time 115000: AGU→SRAM Write: addr=0x03, data=0x07060504
-# Time 115000: WARNING - Read buffer empty!
-#                  116 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000011 din0=07060504 wmask0=1111
-# Time 125000: AGU→SRAM Write: addr=0x04, data=0x0b0a0908
-# Time 125000: WARNING - Read buffer empty!
-# Time 125000:   Loaded word 2: 0x0b0a0908
-#                  126 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000100 din0=0b0a0908 wmask0=1111
-# Time 135000: AGU→SRAM Write: addr=0x05, data=0x0b0a0908
-# Time 135000: WARNING - Read buffer empty!
-#                  136 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000101 din0=0b0a0908 wmask0=1111
-# Time 145000: AGU→SRAM Write: addr=0x06, data=0x0f0e0d0c
-# Time 145000: WARNING - Read buffer empty!
-# Time 145000:   Loaded word 3: 0x0f0e0d0c
-#                  146 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000110 din0=0f0e0d0c wmask0=1111
-# Time 155000: AGU→SRAM Write: addr=0x07, data=0x0f0e0d0c
-# Time 155000: WARNING - Read buffer empty!
-#                  156 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00000111 din0=0f0e0d0c wmask0=1111
-# Time 165000: AGU→SRAM Write: addr=0x08, data=0x13121110
-# Time 165000: WARNING - Read buffer empty!
-# Time 165000:   Loaded word 4: 0x13121110
-#                  166 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001000 din0=13121110 wmask0=1111
-# Time 175000: AGU→SRAM Write: addr=0x09, data=0x13121110
-# Time 175000: WARNING - Read buffer empty!
-#                  176 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001001 din0=13121110 wmask0=1111
-# Time 185000: AGU→SRAM Write: addr=0x0a, data=0x17161514
-# Time 185000: WARNING - Read buffer empty!
-# Time 185000:   Loaded word 5: 0x17161514
-#                  186 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001010 din0=17161514 wmask0=1111
-# Time 195000: AGU→SRAM Write: addr=0x0b, data=0x17161514
-# Time 195000: WARNING - Read buffer empty!
-#                  196 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001011 din0=17161514 wmask0=1111
-# Time 205000: AGU→SRAM Write: addr=0x0c, data=0x1b1a1918
-# Time 205000: WARNING - Read buffer empty!
-# Time 205000:   Loaded word 6: 0x1b1a1918
-#                  206 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001100 din0=1b1a1918 wmask0=1111
-# Time 215000: AGU→SRAM Write: addr=0x0d, data=0x1b1a1918
-# Time 215000: WARNING - Read buffer empty!
-#                  216 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001101 din0=1b1a1918 wmask0=1111
-# Time 225000: AGU→SRAM Write: addr=0x0e, data=0x1f1e1d1c
-# Time 225000: WARNING - Read buffer empty!
-# Time 225000:   Loaded word 7: 0x1f1e1d1c
-#                  226 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001110 din0=1f1e1d1c wmask0=1111
-# Time 235000: AGU→SRAM Write: addr=0x0f, data=0x1f1e1d1c
-# Time 235000: WARNING - Read buffer empty!
-#                  236 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00001111 din0=1f1e1d1c wmask0=1111
-# Time 245000: AGU→SRAM Write: addr=0x10, data=0x23222120
-# Time 245000: WARNING - Read buffer empty!
-# Time 245000:   Loaded word 8: 0x23222120
-#                  246 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00010000 din0=23222120 wmask0=1111
-# Time 255000: AGU→SRAM Write: addr=0x11, data=0x23222120
-# Time 255000: Buffer Switch - Now Reading from Ping, Writing to Pong
-# Time 255000: WARNING - Read buffer empty!
-#                  256 Writing tb_accelerator_integration.dut.mem_ctrl.ping_sram addr0=00010001 din0=23222120 wmask0=1111
+# Total Tests: 8
+# Passed: 8
+# Failed: 0
+# STATUS: ALL TESTS PASSED!
+# ========================================
 # 
-# *** ERROR: Simulation timeout! ***
-# 
-# ** Note: $finish    : ../rtl/tb/tb_accelerator_integration.v(553)
-#    Time: 200 us  Iteration: 0  Instance: /tb_accelerator_integration
+# ** Note: $finish    : ../rtl/tb/tb_control_unit.v(380)
+#    Time: 3675 ns  Iteration: 0  Instance: /tb_control_unit
 # 1
-# Break in Module tb_accelerator_integration at ../rtl/tb/tb_accelerator_integration.v line 553
-# ==========================================
-# Simulation Complete!
-# ==========================================
+# Break in Module tb_control_unit at ../rtl/tb/tb_control_unit.v line 380
 # 0 ps
-# 210 us
-# End time: 14:30:56 on Dec 18,2025, Elapsed time: 0:00:18
-# Errors: 0, Warnings: 0
+# 3858750 ps
