@@ -20,3 +20,6 @@ sim_pe
 
 # But keep example results
 !sim/results/.gitkeep
+
+
+*.md
