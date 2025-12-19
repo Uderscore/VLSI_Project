@@ -52,17 +52,17 @@ module convolution_accelerator_top #(
     //==========================================================================
     reg [6:0]  N_reg;
     reg [4:0]  K_reg;  // Extended to 5-bit for safety
-    reg [11:0] input_count;
-    reg [8:0]  kernel_count;  // 9-bit: supports 16*16=256 (needs 9 bits for 256+1)
-    reg [11:0] output_count;
+    reg [12:0] input_count;  // Expanded to 13-bit for N=64 (4096)
+    reg [8:0]  kernel_count; 
+    reg [12:0] output_count; // Expanded to 13-bit
     reg [6:0]  out_size;
     
     //==========================================================================
-    // Counters - Use 12-bit for wider range
+    // Counters - Use 13-bit for wider range
     //==========================================================================
-    reg [11:0] load_counter;
-    reg [8:0]  weight_counter;  // Match kernel_count width
-    reg [11:0] drain_counter;
+    reg [12:0] load_counter;
+    reg [8:0]  weight_counter;  
+    reg [12:0] drain_counter;
     reg [11:0] out_x, out_y;     // 12-bit to prevent overflow in address calc
     reg [4:0]  kx, ky;
     reg        compute_done;
@@ -100,10 +100,16 @@ module convolution_accelerator_top #(
     // State Machine
     //==========================================================================
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n)
+        if (!rst_n) begin
             state <= S_IDLE;
-        else
+        end else begin
             state <= next_state;
+            if (state != next_state) begin
+                $display("[RTL DEBUG] Time=%0t State Transition: %0d -> %0d", $time, state, next_state);
+                $display("[RTL DEBUG] Counters: Load=%0d/%0d, Weight=%0d/%0d", 
+                         load_counter, input_count, weight_counter, kernel_count);
+            end
+        end
     end
     
     always @(*) begin
@@ -243,6 +249,10 @@ module convolution_accelerator_top #(
                             end
                         end
                         
+
+                        if (kx == 0 && ky == 0 && (out_x % 8 == 0))
+                             $display("[RTL DEBUG] S_COMPUTE Progress: out_x=%0d, out_y=%0d", out_x, out_y);
+                             
                         // Check if this cycle completes K×K MACs for current 8 pixels
                         if (kx == K_reg - 1 && ky == K_reg - 1) begin
                             // Store 8 results with saturation

@@ -11,26 +11,26 @@ cModel Technology
 Z0 dC:/Users/ASUS/Desktop/SWE_Ass/VLSI_Project
 vconvolution_accelerator_top
 Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z2 !s110 1766163240
+Z2 !s110 1766164346
 !i10b 1
-!s100 PdAgkAh3b[ocHaMil9;n;1
+!s100 YXiPEZ8=c6c8lS5IMkLe50
 Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I[B>j^EkO^i?Yj`N9zHki31
+ITgRTEnB=W9JPd<^dO<I@g3
 Z4 VDg1SIo80bB@j0V0VzS_@n1
 S1
 R0
-w1766162130
+w1766164222
 8rtl/convolution_accelerator_top.v
 Frtl/convolution_accelerator_top.v
-!i122 0
-L0 6 300
+!i122 1
+L0 6 310
 Z5 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z6 !s108 1766163240.000000
+Z6 !s108 1766164346.000000
 !s107 rtl/tb/tb_full_system.v|rtl/convolution_accelerator_top.v|
-Z7 !s90 -work|work|-sv|rtl/convolution_accelerator_top.v|rtl/tb/tb_full_system.v|
+Z7 !s90 -reportprogress|300|-work|work|-sv|rtl/convolution_accelerator_top.v|rtl/tb/tb_full_system.v|
 !i113 1
 Z8 o-work work -sv
 Z9 tCvgOpt 0
@@ -47,7 +47,7 @@ R0
 w1766163184
 8rtl/tb/tb_full_system.v
 Frtl/tb/tb_full_system.v
-!i122 0
+!i122 1
 L0 13 565
 R5
 r1
