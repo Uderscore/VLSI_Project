@@ -159,8 +159,9 @@
 #   Phase 3: Computing convolution...
 #   Computation complete in 1767 cycles
 #   Phase 4: Collecting 196 output pixels...
-#   Results collected: 196 pixels
-#   Saved actual output to sim/testdata/N16_K3_max_actual.txt
+#   R# End time: 17:04:07 on Dec 19,2025, Elapsed time: 0:18:01
+# Errors: 0, Warnings: 2
+l.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 196 results match!
 #   Loading files: sim/testdata/N16_K3_sparse_input.hex
