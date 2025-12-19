@@ -112,6 +112,7 @@ module control_unit #(
     // First entry flags (for tile counter reset only once per phase)
     reg        compute_phase_init;
     reg        drain_phase_init;
+    reg [1:0]  state_timer;     // Timer for state stability
     
     // Edge detection for tile_done
     reg        agu_tile_done_d;
@@ -290,6 +291,7 @@ module control_unit #(
                     weight_load_done   <= 1'b0;
                     compute_phase_init <= 1'b0;
                     drain_phase_init   <= 1'b0;
+                    state_timer        <= 2'd0;
                     
                     if (host_start && host_data_valid) begin
                         host_ack <= 1'b1;  // Acknowledge start
@@ -313,6 +315,8 @@ module control_unit #(
                     
                     // Start memory controller
                     mem_start     <= 1'b1;
+                    
+                    state_timer   <= 2'd0; // Reset timer for next state
                 end
                 
                 //==============================================================
@@ -322,14 +326,16 @@ module control_unit #(
                     busy              <= 1'b1;
                     loader_is_loading <= 1'b1;
                     
-                    // Start AGU for loading if not already started
-                    if (!load_started && !agu_busy) begin
+                    // Force 1-cycle wait upon entering LOAD to allow AGU to process config
+                    if (!load_started && !agu_busy && state_timer > 0) begin
                         agu_mode      <= MODE_LOAD_INPUT;
                         agu_tile_x    <= current_tile_x;
                         agu_tile_y    <= current_tile_y;
                         agu_start     <= 1'b1;
                         load_started  <= 1'b1;
                     end
+                    
+                    if (state_timer < 3) state_timer <= state_timer + 1; // Counter for stability
                     
                     // Handle tile completion
                     if (agu_tile_done_pulse) begin
