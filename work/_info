@@ -9,221 +9,53 @@ z2
 !i10f 100
 cModel Technology
 Z0 dC:/Users/ASUS/Desktop/SWE_Ass/VLSI_Project
-vaddress_generator
-Z1 !s110 1766149804
-!i10b 1
-!s100 <azK:zCKo5Wb0BSYHD5f_3
-Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I_aSG6h>N`KJ<Bf<A^1SG:1
-Z3 VDg1SIo80bB@j0V0VzS_@n1
-R0
-w1766148499
-8rtl/control/address_generator.v
-Frtl/control/address_generator.v
-!i122 11
-L0 18 407
-Z4 OV;L;2020.1;71
-r1
-!s85 0
-31
-Z5 !s108 1766149804.000000
-Z6 !s107 rtl/tb/tb_full_system.v|rtl/convolution_accelerator_top.v|rtl/control/data_loader.v|rtl/control/control_unit.v|rtl/control/address_generator.v|rtl/mem/memory_controller.v|rtl/core/systolic_array.v|rtl/core/processing_element.v|third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v|
-Z7 !s90 -reportprogress|300|-work|work|+incdir+rtl/include|third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v|rtl/core/processing_element.v|rtl/core/systolic_array.v|rtl/mem/memory_controller.v|rtl/control/address_generator.v|rtl/control/control_unit.v|rtl/control/data_loader.v|rtl/convolution_accelerator_top.v|rtl/tb/tb_full_system.v|
-!i113 1
-Z8 o-work work
-Z9 !s92 -work work +incdir+rtl/include
-Z10 tCvgOpt 0
-vcontrol_unit
-R1
-!i10b 1
-!s100 g<XWm24U[8>;d^=5;4cG62
-R2
-IdlZ6EPMG_]@mT9ORIVRJl3
-R3
-R0
-w1766149544
-8rtl/control/control_unit.v
-Frtl/control/control_unit.v
-!i122 11
-L0 17 480
-R4
-r1
-!s85 0
-31
-R5
-R6
-R7
-!i113 1
-R8
-R9
-R10
 vconvolution_accelerator_top
-Z11 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z12 !s110 1766156337
+Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+Z2 !s110 1766163240
 !i10b 1
-!s100 Fn8;K6MDhgA>b3P4oeoDJ2
-R2
-IF>`R6b5DVf7cRL4cBIKXB2
-R3
+!s100 PdAgkAh3b[ocHaMil9;n;1
+Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I[B>j^EkO^i?Yj`N9zHki31
+Z4 VDg1SIo80bB@j0V0VzS_@n1
 S1
 R0
-w1766153148
+w1766162130
 8rtl/convolution_accelerator_top.v
 Frtl/convolution_accelerator_top.v
-!i122 47
-L0 6 279
-R4
+!i122 0
+L0 6 300
+Z5 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z13 !s108 1766156337.000000
+Z6 !s108 1766163240.000000
 !s107 rtl/tb/tb_full_system.v|rtl/convolution_accelerator_top.v|
-Z14 !s90 -work|work|-sv|rtl/convolution_accelerator_top.v|rtl/tb/tb_full_system.v|
+Z7 !s90 -work|work|-sv|rtl/convolution_accelerator_top.v|rtl/tb/tb_full_system.v|
 !i113 1
-Z15 o-work work -sv
-R10
-vdata_loader
-R1
-!i10b 1
-!s100 0j;7aZ812bUU8Coh=XLO03
-R2
-IFPQ7ZdkPYbDQdJ40>;Y=l0
-R3
-R0
-w1766146359
-8rtl/control/data_loader.v
-Frtl/control/data_loader.v
-!i122 11
-L0 19 194
-R4
-r1
-!s85 0
-31
-R5
-R6
-R7
-!i113 1
-R8
-R9
-R10
-vmemory_controller
-R1
-!i10b 1
-!s100 @[J@m?I1PXFMVbcN7m`cj2
-R2
-Ih5JaIdMRDGJbb^QRWl<NM2
-R3
-R0
-w1765037148
-8rtl/mem/memory_controller.v
-Frtl/mem/memory_controller.v
-!i122 11
-L0 14 342
-R4
-r1
-!s85 0
-31
-R5
-R6
-R7
-!i113 1
-R8
-R9
-R10
-vprocessing_element
-R1
-!i10b 1
-!s100 bbPo<l?@EdK`HEm2jC=IT3
-R2
-IAU_oaE^@4M3M8X]`QiWi51
-R3
-R0
-w1764432348
-8rtl/core/processing_element.v
-Frtl/core/processing_element.v
-!i122 11
-L0 1 69
-R4
-r1
-!s85 0
-31
-R5
-R6
-R7
-!i113 1
-R8
-R9
-R10
-vsky130_sram_1kbyte_1rw1r_32x256_8
-R1
-!i10b 1
-!s100 YSlVOi6mnz`;5>`R=fnZk2
-R2
-I]RR14=gP]glBhD=<V2WBg2
-R3
-R0
-w1764867207
-8third_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v
-Fthird_party/sram_macros/sky130_sram_1kbyte_1rw1r_32x256_8.v
-!i122 11
-L0 9 114
-R4
-r1
-!s85 0
-31
-R5
-R6
-R7
-!i113 1
-R8
-R9
-R10
-vsystolic_array
-R1
-!i10b 1
-!s100 ]n70cKn^9DCKNGlR@zFn70
-R2
-Izf]=T_^EL4?doj4L`=fUD0
-R3
-R0
-w1765405106
-8rtl/core/systolic_array.v
-Frtl/core/systolic_array.v
-!i122 11
-L0 1 213
-R4
-r1
-!s85 0
-31
-R5
-R6
-R7
-!i113 1
-R8
-R9
-R10
+Z8 o-work work -sv
+Z9 tCvgOpt 0
 vtb_full_system
-R11
-R12
-!i10b 1
-!s100 FlAld4OY=Rl<Z1ELQHAJz1
+R1
 R2
-I?M?697MVi5Tz`g4KLcY?Z0
+!i10b 1
+!s100 TOof[XEkcZZNOmWAZT[GT1
 R3
+I3j4b@;=6=624P4G3TkhlW2
+R4
 S1
 R0
-w1766156248
+w1766163184
 8rtl/tb/tb_full_system.v
 Frtl/tb/tb_full_system.v
-!i122 47
-L0 13 480
-R4
+!i122 0
+L0 13 565
+R5
 r1
 !s85 0
 31
-R13
-Z16 !s107 rtl/tb/tb_full_system.v|rtl/convolution_accelerator_top.v|
-R14
+R6
+Z10 !s107 rtl/tb/tb_full_system.v|rtl/convolution_accelerator_top.v|
+R7
 !i113 1
-R15
-R10
+R8
+R9

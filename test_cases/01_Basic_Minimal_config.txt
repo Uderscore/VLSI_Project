@@ -1,0 +1,3 @@
+N=16
+K=2
+Output_Size=225

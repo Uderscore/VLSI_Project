@@ -1,25 +1,24 @@
 # do scripts/sim/run_full_system.do
-# ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 16:58:57 on Dec 19,2025
+# Start time: 18:54:00 on Dec 19,2025
 # vlog -work work -sv rtl/convolution_accelerator_top.v rtl/tb/tb_full_system.v 
 # -- Compiling module convolution_accelerator_top
 # -- Compiling module tb_full_system
 # 
 # Top level modules:
 # 	tb_full_system
-# End time: 16:58:57 on Dec 19,2025, Elapsed time: 0:00:00
+# End time: 18:54:00 on Dec 19,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -voptargs="+acc" work.tb_full_system 
-# Start time: 16:58:57 on Dec 19,2025
+# Start time: 18:54:00 on Dec 19,2025
 # Loading sv_std.std
 # Loading work.tb_full_system
 # Loading work.convolution_accelerator_top
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: ASUS  Hostname: ROG-STRIX  ProcessID: 21368
-#           Attempting to use alternate WLF file "./wlftaqz19v".
+#           Attempting to use alternate WLF file "./wlftziffy1".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftaqz19v
+#           Using alternate file: ./wlftziffy1
 # 
 # 
 # ================================================================
@@ -40,7 +39,7 @@
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 1767 cycles
+#   Computation complete in 255 cycles
 #   Phase 4: Collecting 196 output pixels...
 #   Results collected: 196 pixels
 #   Saved actual output to sim/testdata/N16_K3_internal_actual.txt
@@ -56,7 +55,7 @@
 #   Phase 2: Loading 25 kernel weights...
 #   Kernel loaded: 25 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 3603 cycles
+#   Computation complete in 603 cycles
 #   Phase 4: Collecting 144 output pixels...
 #   Results collected: 144 pixels
 #   Saved actual output to sim/testdata/N16_K5_internal_actual.txt
@@ -72,13 +71,13 @@
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 8103 cycles
+#   Computation complete in 1083 cycles
 #   Phase 4: Collecting 900 output pixels...
 #   Results collected: 900 pixels
 #   Saved actual output to sim/testdata/N32_K3_internal_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 900 results match!
-#   Loading files: sim/testdata/N16_K3_input.hex
+# Loading files: sim/testdata/N16_K3_input.hex
 # 
 # 
 # ================================================================
@@ -89,13 +88,13 @@
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 1767 cycles
+#   Computation complete in 255 cycles
 #   Phase 4: Collecting 196 output pixels...
 #   Results collected: 196 pixels
 #   Saved actual output to sim/testdata/N16_K3_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 196 results match!
-#   Loading files: sim/testdata/N16_K5_input.hex
+# Loading files: sim/testdata/N16_K5_input.hex
 # 
 # 
 # ================================================================
@@ -106,13 +105,13 @@
 #   Phase 2: Loading 25 kernel weights...
 #   Kernel loaded: 25 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 3603 cycles
+#   Computation complete in 603 cycles
 #   Phase 4: Collecting 144 output pixels...
 #   Results collected: 144 pixels
 #   Saved actual output to sim/testdata/N16_K5_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 144 results match!
-#   Loading files: sim/testdata/N32_K3_input.hex
+# Loading files: sim/testdata/N32_K3_input.hex
 # 
 # 
 # ================================================================
@@ -123,13 +122,13 @@
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 8103 cycles
+#   Computation complete in 1083 cycles
 #   Phase 4: Collecting 900 output pixels...
 #   Results collected: 900 pixels
 #   Saved actual output to sim/testdata/N32_K3_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 900 results match!
-#   Loading files: sim/testdata/N16_K3_zeros_input.hex
+# Loading files: sim/testdata/N16_K3_zeros_input.hex
 # 
 # 
 # ================================================================
@@ -140,13 +139,13 @@
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 1767 cycles
+#   Computation complete in 255 cycles
 #   Phase 4: Collecting 196 output pixels...
 #   Results collected: 196 pixels
 #   Saved actual output to sim/testdata/N16_K3_zeros_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 196 results match!
-#   Loading files: sim/testdata/N16_K3_max_input.hex
+# Loading files: sim/testdata/N16_K3_max_input.hex
 # 
 # 
 # ================================================================
@@ -157,14 +156,13 @@
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 1767 cycles
+#   Computation complete in 255 cycles
 #   Phase 4: Collecting 196 output pixels...
-#   R# End time: 17:04:07 on Dec 19,2025, Elapsed time: 0:18:01
-# Errors: 0, Warnings: 2
-l.txt
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/N16_K3_max_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 196 results match!
-#   Loading files: sim/testdata/N16_K3_sparse_input.hex
+# Loading files: sim/testdata/N16_K3_sparse_input.hex
 # 
 # 
 # ================================================================
@@ -175,13 +173,13 @@ l.txt
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 1767 cycles
+#   Computation complete in 255 cycles
 #   Phase 4: Collecting 196 output pixels...
 #   Results collected: 196 pixels
 #   Saved actual output to sim/testdata/N16_K3_sparse_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 196 results match!
-#   Loading files: sim/testdata/N16_K3_checker_input.hex
+# Loading files: sim/testdata/N16_K3_checker_input.hex
 # 
 # 
 # ================================================================
@@ -192,27 +190,587 @@ l.txt
 #   Phase 2: Loading 9 kernel weights...
 #   Kernel loaded: 9 weights
 #   Phase 3: Computing convolution...
-#   Computation complete in 1767 cycles
+#   Computation complete in 255 cycles
 #   Phase 4: Collecting 196 output pixels...
 #   Results collected: 196 pixels
 #   Saved actual output to sim/testdata/N16_K3_checker_actual.txt
 #   Phase 5: Verifying results (tolerance: +/-1)...
 #   PASS: All 196 results match!
+# Loaded Custom Test: 01_Basic_Minimal (N=16, K=2)
+# 
+# 
+# ================================================================
+# TEST CASE: 01_Basic_Minimal (Output: 15x15 = 225 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 4 kernel weights...
+#   Kernel loaded: 4 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 123 cycles
+#   Phase 4: Collecting 225 output pixels...
+#   Results collected: 225 pixels
+#   Saved actual output to sim/testdata/01_Basic_Minimal_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 225 results match!
+# Loaded Custom Test: 02_Basic_Identity (N=16, K=3)
+# 
+# 
+# ================================================================
+# TEST CASE: 02_Basic_Identity (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 255 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/02_Basic_Identity_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+# Loaded Custom Test: 03_Basic_AllOnes (N=16, K=2)
+# 
+# 
+# ================================================================
+# TEST CASE: 03_Basic_AllOnes (Output: 15x15 = 225 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 4 kernel weights...
+#   Kernel loaded: 4 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 123 cycles
+#   Phase 4: Collecting 225 output pixels...
+#   Results collected: 225 pixels
+#   Saved actual output to sim/testdata/03_Basic_AllOnes_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 225 results match!
+# Loaded Custom Test: 04_Regular_Standard (N=32, K=3)
+# 
+# 
+# ================================================================
+# TEST CASE: 04_Regular_Standard (Output: 30x30 = 900 pixels)
+# ================================================================
+#   Phase 1: Loading 1024 input pixels...
+#   Input loaded: 1024 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1083 cycles
+#   Phase 4: Collecting 900 output pixels...
+#   Results collected: 900 pixels
+#   Saved actual output to sim/testdata/04_Regular_Standard_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 900 results match!
+# Loaded Custom Test: 05_Regular_LargeHalo (N=32, K=5)
+# 
+# 
+# ================================================================
+# TEST CASE: 05_Regular_LargeHalo (Output: 28x28 = 784 pixels)
+# ================================================================
+#   Phase 1: Loading 1024 input pixels...
+#   Input loaded: 1024 pixels
+#   Phase 2: Loading 25 kernel weights...
+#   Kernel loaded: 25 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 2803 cycles
+#   Phase 4: Collecting 784 output pixels...
+#   Results collected: 784 pixels
+#   Saved actual output to sim/testdata/05_Regular_LargeHalo_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 784 results match!
+# Loaded Custom Test: 06_Regular_PingPong (N=24, K=3)
+# 
+# 
+# ================================================================
+# TEST CASE: 06_Regular_PingPong (Output: 22x22 = 484 pixels)
+# ================================================================
+#   Phase 1: Loading 576 input pixels...
+#   Input loaded: 576 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 597 cycles
+#   Phase 4: Collecting 484 output pixels...
+#   Results collected: 484 pixels
+#   Saved actual output to sim/testdata/06_Regular_PingPong_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 484 results match!
+# Loaded Custom Test: 07_Adv_MaxSpec (N=64, K=16)
+# 
+# 
+# ================================================================
+# TEST CASE: 07_Adv_MaxSpec (Output: 49x49 = 2401 pixels)
+# ================================================================
+#   Phase 1: Loading 4096 input pixels...
+#   Input loaded: 4096 pixels
+#   Phase 2: Loading 256 kernel weights...
+#   Kernel loaded: 256 weights
+#   Phase 3: Computing convolution...
+#     ... waiting, state=0, cycle=50000
+#     ... waiting, state=0, cycle=100000
+#     ... waiting, state=0, cycle=150000
+#     ... waiting, state=0, cycle=200000
+#     ... waiting, state=0, cycle=250000
+#     ... waiting, state=0, cycle=300000
+#     ... waiting, state=0, cycle=350000
+#     ... waiting, state=0, cycle=400000
+#     ... waiting, state=0, cycle=450000
+#     ... waiting, state=0, cycle=500000
+#     ... waiting, state=0, cycle=550000
+#     ... waiting, state=0, cycle=600000
+#     ... waiting, state=0, cycle=650000
+#     ... waiting, state=0, cycle=700000
+#     ... waiting, state=0, cycle=750000
+#     ... waiting, state=0, cycle=800000
+#     ... waiting, state=0, cycle=850000
+#     ... waiting, state=0, cycle=900000
+#     ... waiting, state=0, cycle=950000
+#     ... waiting, state=0, cycle=1000000
+#     ... waiting, state=0, cycle=1050000
+#     ... waiting, state=0, cycle=1100000
+#     ... waiting, state=0, cycle=1150000
+#     ... waiting, state=0, cycle=1200000
+#     ... waiting, state=0, cycle=1250000
+#     ... waiting, state=0, cycle=1300000
+#     ... waiting, state=0, cycle=1350000
+#     ... waiting, state=0, cycle=1400000
+#     ... waiting, state=0, cycle=1450000
+#     ... waiting, state=0, cycle=1500000
+#     ... waiting, state=0, cycle=1550000
+#     ... waiting, state=0, cycle=1600000
+#     ... waiting, state=0, cycle=1650000
+#     ... waiting, state=0, cycle=1700000
+#     ... waiting, state=0, cycle=1750000
+#     ... waiting, state=0, cycle=1800000
+#     ... waiting, state=0, cycle=1850000
+#     ... waiting, state=0, cycle=1900000
+#     ... waiting, state=0, cycle=1950000
+#     ... waiting, state=0, cycle=2000000
+#     ... waiting, state=0, cycle=2050000
+#     ... waiting, state=0, cycle=2100000
+#     ... waiting, state=0, cycle=2150000
+#     ... waiting, state=0, cycle=2200000
+#     ... waiting, state=0, cycle=2250000
+#     ... waiting, state=0, cycle=2300000
+#     ... waiting, state=0, cycle=2350000
+#     ... waiting, state=0, cycle=2400000
+#     ... waiting, state=0, cycle=2450000
+#     ... waiting, state=0, cycle=2500000
+#     ... waiting, state=0, cycle=2550000
+#     ... waiting, state=0, cycle=2600000
+#     ... waiting, state=0, cycle=2650000
+#     ... waiting, state=0, cycle=2700000
+#     ... waiting, state=0, cycle=2750000
+#     ... waiting, state=0, cycle=2800000
+#     ... waiting, state=0, cycle=2850000
+#     ... waiting, state=0, cycle=2900000
+#     ... waiting, state=0, cycle=2950000
+#     ... waiting, state=0, cycle=3000000
+#     ... waiting, state=0, cycle=3050000
+#     ... waiting, state=0, cycle=3100000
+#     ... waiting, state=0, cycle=3150000
+#     ... waiting, state=0, cycle=3200000
+#     ... waiting, state=0, cycle=3250000
+#     ... waiting, state=0, cycle=3300000
+#     ... waiting, state=0, cycle=3350000
+#     ... waiting, state=0, cycle=3400000
+#     ... waiting, state=0, cycle=3450000
+#     ... waiting, state=0, cycle=3500000
+#     ... waiting, state=0, cycle=3550000
+#     ... waiting, state=0, cycle=3600000
+#     ... waiting, state=0, cycle=3650000
+#     ... waiting, state=0, cycle=3700000
+#     ... waiting, state=0, cycle=3750000
+#     ... waiting, state=0, cycle=3800000
+#     ... waiting, state=0, cycle=3850000
+#     ... waiting, state=0, cycle=3900000
+#     ... waiting, state=0, cycle=3950000
+#     ... waiting, state=0, cycle=4000000
+#     ... waiting, state=0, cycle=4050000
+#     ... waiting, state=0, cycle=4100000
+#     ... waiting, state=0, cycle=4150000
+#     ... waiting, state=0, cycle=4200000
+#     ... waiting, state=0, cycle=4250000
+#     ... waiting, state=0, cycle=4300000
+#     ... waiting, state=0, cycle=4350000
+#     ... waiting, state=0, cycle=4400000
+#     ... waiting, state=0, cycle=4450000
+#     ... waiting, state=0, cycle=4500000
+#     ... waiting, state=0, cycle=4550000
+#     ... waiting, state=0, cycle=4600000
+#     ... waiting, state=0, cycle=4650000
+#     ... waiting, state=0, cycle=4700000
+#     ... waiting, state=0, cycle=4750000
+#     ... waiting, state=0, cycle=4800000
+#     ... waiting, state=0, cycle=4850000
+#     ... waiting, state=0, cycle=4900000
+#     ... waiting, state=0, cycle=4950000
+#     ... waiting, state=0, cycle=5000000
+#     ... waiting, state=0, cycle=5050000
+#     ... waiting, state=0, cycle=5100000
+#     ... waiting, state=0, cycle=5150000
+#     ... waiting, state=0, cycle=5200000
+#     ... waiting, state=0, cycle=5250000
+#     ... waiting, state=0, cycle=5300000
+#     ... waiting, state=0, cycle=5350000
+#     ... waiting, state=0, cycle=5400000
+#     ... waiting, state=0, cycle=5450000
+#     ... waiting, state=0, cycle=5500000
+#     ... waiting, state=0, cycle=5550000
+#     ... waiting, state=0, cycle=5600000
+#     ... waiting, state=0, cycle=5650000
+#     ... waiting, state=0, cycle=5700000
+#     ... waiting, state=0, cycle=5750000
+#     ... waiting, state=0, cycle=5800000
+#     ... waiting, state=0, cycle=5850000
+#     ... waiting, state=0, cycle=5900000
+#     ... waiting, state=0, cycle=5950000
+#     ... waiting, state=0, cycle=6000000
+#     ... waiting, state=0, cycle=6050000
+#     ... waiting, state=0, cycle=6100000
+#     ... waiting, state=0, cycle=6150000
+#     ... waiting, state=0, cycle=6200000
+#     ... waiting, state=0, cycle=6250000
+#     ... waiting, state=0, cycle=6300000
+#     ... waiting, state=0, cycle=6350000
+#     ... waiting, state=0, cycle=6400000
+#     ... waiting, state=0, cycle=6450000
+#     ... waiting, state=0, cycle=6500000
+#     ... waiting, state=0, cycle=6550000
+#     ... waiting, state=0, cycle=6600000
+#     ... waiting, state=0, cycle=6650000
+#     ... waiting, state=0, cycle=6700000
+#     ... waiting, state=0, cycle=6750000
+#     ... waiting, state=0, cycle=6800000
+#     ... waiting, state=0, cycle=6850000
+#     ... waiting, state=0, cycle=6900000
+#     ... waiting, state=0, cycle=6950000
+#     ... waiting, state=0, cycle=7000000
+#     ... waiting, state=0, cycle=7050000
+#     ... waiting, state=0, cycle=7100000
+#     ... waiting, state=0, cycle=7150000
+#     ... waiting, state=0, cycle=7200000
+#     ... waiting, state=0, cycle=7250000
+#     ... waiting, state=0, cycle=7300000
+#     ... waiting, state=0, cycle=7350000
+#     ... waiting, state=0, cycle=7400000
+#     ... waiting, state=0, cycle=7450000
+#     ... waiting, state=0, cycle=7500000
+#     ... waiting, state=0, cycle=7550000
+#     ... waiting, state=0, cycle=7600000
+#     ... waiting, state=0, cycle=7650000
+#     ... waiting, state=0, cycle=7700000
+#     ... waiting, state=0, cycle=7750000
+#     ... waiting, state=0, cycle=7800000
+#     ... waiting, state=0, cycle=7850000
+#     ... waiting, state=0, cycle=7900000
+#     ... waiting, state=0, cycle=7950000
+#     ... waiting, state=0, cycle=8000000
+#     ... waiting, state=0, cycle=8050000
+#     ... waiting, state=0, cycle=8100000
+#     ... waiting, state=0, cycle=8150000
+#     ... waiting, state=0, cycle=8200000
+#     ... waiting, state=0, cycle=8250000
+#     ... waiting, state=0, cycle=8300000
+#     ... waiting, state=0, cycle=8350000
+#     ... waiting, state=0, cycle=8400000
+#     ... waiting, state=0, cycle=8450000
+#     ... waiting, state=0, cycle=8500000
+#     ... waiting, state=0, cycle=8550000
+#     ... waiting, state=0, cycle=8600000
+#     ... waiting, state=0, cycle=8650000
+#     ... waiting, state=0, cycle=8700000
+#     ... waiting, state=0, cycle=8750000
+#     ... waiting, state=0, cycle=8800000
+#     ... waiting, state=0, cycle=8850000
+#     ... waiting, state=0, cycle=8900000
+#     ... waiting, state=0, cycle=8950000
+#     ... waiting, state=0, cycle=9000000
+#     ... waiting, state=0, cycle=9050000
+#     ... waiting, state=0, cycle=9100000
+#     ... waiting, state=0, cycle=9150000
+#     ... waiting, state=0, cycle=9200000
+#     ... waiting, state=0, cycle=9250000
+#     ... waiting, state=0, cycle=9300000
+#     ... waiting, state=0, cycle=9350000
+#     ... waiting, state=0, cycle=9400000
+#     ... waiting, state=0, cycle=9450000
+#     ... waiting, state=0, cycle=9500000
+#     ... waiting, state=0, cycle=9550000
+#     ... waiting, state=0, cycle=9600000
+#     ... waiting, state=0, cycle=9650000
+#     ... waiting, state=0, cycle=9700000
+#     ... waiting, state=0, cycle=9750000
+#     ... waiting, state=0, cycle=9800000
+#     ... waiting, state=0, cycle=9850000
+#     ... waiting, state=0, cycle=9900000
+#     ... waiting, state=0, cycle=9950000
+#     ... waiting, state=0, cycle=10000000
+#   FAIL: Computation timeout
+# Loaded Custom Test: 08_Adv_Throughput (N=64, K=3)
+# 
+# 
+# ================================================================
+# TEST CASE: 08_Adv_Throughput (Output: 62x62 = 3844 pixels)
+# ================================================================
+#   Phase 1: Loading 4096 input pixels...
+#   Input loaded: 4096 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#     ... waiting, state=0, cycle=50000
+#     ... waiting, state=0, cycle=100000
+#     ... waiting, state=0, cycle=150000
+#     ... waiting, state=0, cycle=200000
+#     ... waiting, state=0, cycle=250000
+#     ... waiting, state=0, cycle=300000
+#     ... waiting, state=0, cycle=350000
+#     ... waiting, state=0, cycle=400000
+#     ... waiting, state=0, cycle=450000
+#     ... waiting, state=0, cycle=500000
+#     ... waiting, state=0, cycle=550000
+#     ... waiting, state=0, cycle=600000
+#     ... waiting, state=0, cycle=650000
+#     ... waiting, state=0, cycle=700000
+#     ... waiting, state=0, cycle=750000
+#     ... waiting, state=0, cycle=800000
+#     ... waiting, state=0, cycle=850000
+#     ... waiting, state=0, cycle=900000
+#     ... waiting, state=0, cycle=950000
+#     ... waiting, state=0, cycle=1000000
+#     ... waiting, state=0, cycle=1050000
+#     ... waiting, state=0, cycle=1100000
+#     ... waiting, state=0, cycle=1150000
+#     ... waiting, state=0, cycle=1200000
+#     ... waiting, state=0, cycle=1250000
+#     ... waiting, state=0, cycle=1300000
+#     ... waiting, state=0, cycle=1350000
+#     ... waiting, state=0, cycle=1400000
+#     ... waiting, state=0, cycle=1450000
+#     ... waiting, state=0, cycle=1500000
+#     ... waiting, state=0, cycle=1550000
+#     ... waiting, state=0, cycle=1600000
+#     ... waiting, state=0, cycle=1650000
+#     ... waiting, state=0, cycle=1700000
+#     ... waiting, state=0, cycle=1750000
+#     ... waiting, state=0, cycle=1800000
+#     ... waiting, state=0, cycle=1850000
+#     ... waiting, state=0, cycle=1900000
+#     ... waiting, state=0, cycle=1950000
+#     ... waiting, state=0, cycle=2000000
+#     ... waiting, state=0, cycle=2050000
+#     ... waiting, state=0, cycle=2100000
+#     ... waiting, state=0, cycle=2150000
+#     ... waiting, state=0, cycle=2200000
+#     ... waiting, state=0, cycle=2250000
+#     ... waiting, state=0, cycle=2300000
+#     ... waiting, state=0, cycle=2350000
+#     ... waiting, state=0, cycle=2400000
+#     ... waiting, state=0, cycle=2450000
+#     ... waiting, state=0, cycle=2500000
+#     ... waiting, state=0, cycle=2550000
+#     ... waiting, state=0, cycle=2600000
+#     ... waiting, state=0, cycle=2650000
+#     ... waiting, state=0, cycle=2700000
+#     ... waiting, state=0, cycle=2750000
+#     ... waiting, state=0, cycle=2800000
+#     ... waiting, state=0, cycle=2850000
+#     ... waiting, state=0, cycle=2900000
+#     ... waiting, state=0, cycle=2950000
+#     ... waiting, state=0, cycle=3000000
+#     ... waiting, state=0, cycle=3050000
+#     ... waiting, state=0, cycle=3100000
+#     ... waiting, state=0, cycle=3150000
+#     ... waiting, state=0, cycle=3200000
+#     ... waiting, state=0, cycle=3250000
+#     ... waiting, state=0, cycle=3300000
+#     ... waiting, state=0, cycle=3350000
+#     ... waiting, state=0, cycle=3400000
+#     ... waiting, state=0, cycle=3450000
+#     ... waiting, state=0, cycle=3500000
+#     ... waiting, state=0, cycle=3550000
+#     ... waiting, state=0, cycle=3600000
+#     ... waiting, state=0, cycle=3650000
+#     ... waiting, state=0, cycle=3700000
+#     ... waiting, state=0, cycle=3750000
+#     ... waiting, state=0, cycle=3800000
+#     ... waiting, state=0, cycle=3850000
+#     ... waiting, state=0, cycle=3900000
+#     ... waiting, state=0, cycle=3950000
+#     ... waiting, state=0, cycle=4000000
+#     ... waiting, state=0, cycle=4050000
+#     ... waiting, state=0, cycle=4100000
+#     ... waiting, state=0, cycle=4150000
+#     ... waiting, state=0, cycle=4200000
+#     ... waiting, state=0, cycle=4250000
+#     ... waiting, state=0, cycle=4300000
+#     ... waiting, state=0, cycle=4350000
+#     ... waiting, state=0, cycle=4400000
+#     ... waiting, state=0, cycle=4450000
+#     ... waiting, state=0, cycle=4500000
+#     ... waiting, state=0, cycle=4550000
+#     ... waiting, state=0, cycle=4600000
+#     ... waiting, state=0, cycle=4650000
+#     ... waiting, state=0, cycle=4700000
+#     ... waiting, state=0, cycle=4750000
+#     ... waiting, state=0, cycle=4800000
+#     ... waiting, state=0, cycle=4850000
+#     ... waiting, state=0, cycle=4900000
+#     ... waiting, state=0, cycle=4950000
+#     ... waiting, state=0, cycle=5000000
+#     ... waiting, state=0, cycle=5050000
+#     ... waiting, state=0, cycle=5100000
+#     ... waiting, state=0, cycle=5150000
+#     ... waiting, state=0, cycle=5200000
+#     ... waiting, state=0, cycle=5250000
+#     ... waiting, state=0, cycle=5300000
+#     ... waiting, state=0, cycle=5350000
+#     ... waiting, state=0, cycle=5400000
+#     ... waiting, state=0, cycle=5450000
+#     ... waiting, state=0, cycle=5500000
+#     ... waiting, state=0, cycle=5550000
+#     ... waiting, state=0, cycle=5600000
+#     ... waiting, state=0, cycle=5650000
+#     ... waiting, state=0, cycle=5700000
+#     ... waiting, state=0, cycle=5750000
+#     ... waiting, state=0, cycle=5800000
+#     ... waiting, state=0, cycle=5850000
+#     ... waiting, state=0, cycle=5900000
+#     ... waiting, state=0, cycle=5950000
+#     ... waiting, state=0, cycle=6000000
+#     ... waiting, state=0, cycle=6050000
+#     ... waiting, state=0, cycle=6100000
+#     ... waiting, state=0, cycle=6150000
+#     ... waiting, state=0, cycle=6200000
+#     ... waiting, state=0, cycle=6250000
+#     ... waiting, state=0, cycle=6300000
+#     ... waiting, state=0, cycle=6350000
+#     ... waiting, state=0, cycle=6400000
+#     ... waiting, state=0, cycle=6450000
+#     ... waiting, state=0, cycle=6500000
+#     ... waiting, state=0, cycle=6550000
+#     ... waiting, state=0, cycle=6600000
+#     ... waiting, state=0, cycle=6650000
+#     ... waiting, state=0, cycle=6700000
+#     ... waiting, state=0, cycle=6750000
+#     ... waiting, state=0, cycle=6800000
+#     ... waiting, state=0, cycle=6850000
+#     ... waiting, state=0, cycle=6900000
+#     ... waiting, state=0, cycle=6950000
+#     ... waiting, state=0, cycle=7000000
+#     ... waiting, state=0, cycle=7050000
+#     ... waiting, state=0, cycle=7100000
+#     ... waiting, state=0, cycle=7150000
+#     ... waiting, state=0, cycle=7200000
+#     ... waiting, state=0, cycle=7250000
+#     ... waiting, state=0, cycle=7300000
+#     ... waiting, state=0, cycle=7350000
+#     ... waiting, state=0, cycle=7400000
+#     ... waiting, state=0, cycle=7450000
+#     ... waiting, state=0, cycle=7500000
+#     ... waiting, state=0, cycle=7550000
+#     ... waiting, state=0, cycle=7600000
+#     ... waiting, state=0, cycle=7650000
+#     ... waiting, state=0, cycle=7700000
+#     ... waiting, state=0, cycle=7750000
+#     ... waiting, state=0, cycle=7800000
+#     ... waiting, state=0, cycle=7850000
+#     ... waiting, state=0, cycle=7900000
+#     ... waiting, state=0, cycle=7950000
+#     ... waiting, state=0, cycle=8000000
+#     ... waiting, state=0, cycle=8050000
+#     ... waiting, state=0, cycle=8100000
+#     ... waiting, state=0, cycle=8150000
+#     ... waiting, state=0, cycle=8200000
+#     ... waiting, state=0, cycle=8250000
+#     ... waiting, state=0, cycle=8300000
+#     ... waiting, state=0, cycle=8350000
+#     ... waiting, state=0, cycle=8400000
+#     ... waiting, state=0, cycle=8450000
+#     ... waiting, state=0, cycle=8500000
+#     ... waiting, state=0, cycle=8550000
+#     ... waiting, state=0, cycle=8600000
+#     ... waiting, state=0, cycle=8650000
+#     ... waiting, state=0, cycle=8700000
+#     ... waiting, state=0, cycle=8750000
+#     ... waiting, state=0, cycle=8800000
+#     ... waiting, state=0, cycle=8850000
+#     ... waiting, state=0, cycle=8900000
+#     ... waiting, state=0, cycle=8950000
+#     ... waiting, state=0, cycle=9000000
+#     ... waiting, state=0, cycle=9050000
+#     ... waiting, state=0, cycle=9100000
+#     ... waiting, state=0, cycle=9150000
+#     ... waiting, state=0, cycle=9200000
+#     ... waiting, state=0, cycle=9250000
+#     ... waiting, state=0, cycle=9300000
+#     ... waiting, state=0, cycle=9350000
+#     ... waiting, state=0, cycle=9400000
+#     ... waiting, state=0, cycle=9450000
+#     ... waiting, state=0, cycle=9500000
+#     ... waiting, state=0, cycle=9550000
+#     ... waiting, state=0, cycle=9600000
+#     ... waiting, state=0, cycle=9650000
+#     ... waiting, state=0, cycle=9700000
+#     ... waiting, state=0, cycle=9750000
+#     ... waiting, state=0, cycle=9800000
+#     ... waiting, state=0, cycle=9850000
+#     ... waiting, state=0, cycle=9900000
+#     ... waiting, state=0, cycle=9950000
+#     ... waiting, state=0, cycle=10000000
+#   FAIL: Computation timeout
+# Loaded Custom Test: 09_Pro_PartialTile (N=20, K=3)
+# 
+# 
+# ================================================================
+# TEST CASE: 09_Pro_PartialTile (Output: 18x18 = 324 pixels)
+# ================================================================
+#   Phase 1: Loading 400 input pixels...
+#   Input loaded: 400 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 489 cycles
+#   Phase 4: Collecting 324 output pixels...
+#   Results collected: 324 pixels
+#   Saved actual output to sim/testdata/09_Pro_PartialTile_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 324 results match!
+# Loaded Custom Test: 10_Pro_Saturation (N=16, K=4)
+# 
+# 
+# ================================================================
+# TEST CASE: 10_Pro_Saturation (Output: 13x13 = 169 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 16 kernel weights...
+#   Kernel loaded: 16 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 419 cycles
+#   Phase 4: Collecting 169 output pixels...
+#   Results collected: 169 pixels
+#   Saved actual output to sim/testdata/10_Pro_Saturation_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 169 results match!
 # 
 # 
 # ================================================================
 #                     SIMULATION SUMMARY
 # ================================================================
-# Total Tests:  10
-# Passed:       10
-# Failed:       0
-# Total Errors: 0
+# Total Tests:  20
+# Passed:       18
+# Failed:       2
+# Total Errors: 2
 # 
-# *** ALL TESTS PASSED ***
+# *** TESTS FAILED: 2 ERRORS ***
 # 
 # ================================================================
 # 
-# ** Note: $finish    : rtl/tb/tb_full_system.v(480)
-#    Time: 416755 ns  Iteration: 1  Instance: /tb_full_system
-# End time: 16:58:58 on Dec 19,2025, Elapsed time: 0:00:01
+# ** Note: $finish    : rtl/tb/tb_full_system.v(565)
+#    Time: 201333575 ns  Iteration: 1  Instance: /tb_full_system
+# End time: 18:54:55 on Dec 19,2025, Elapsed time: 0:00:55
 # Errors: 0, Warnings: 2
