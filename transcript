@@ -1,0 +1,218 @@
+# do scripts/sim/run_full_system.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:58:57 on Dec 19,2025
+# vlog -work work -sv rtl/convolution_accelerator_top.v rtl/tb/tb_full_system.v 
+# -- Compiling module convolution_accelerator_top
+# -- Compiling module tb_full_system
+# 
+# Top level modules:
+# 	tb_full_system
+# End time: 16:58:57 on Dec 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" work.tb_full_system 
+# Start time: 16:58:57 on Dec 19,2025
+# Loading sv_std.std
+# Loading work.tb_full_system
+# Loading work.convolution_accelerator_top
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: ASUS  Hostname: ROG-STRIX  ProcessID: 21368
+#           Attempting to use alternate WLF file "./wlftaqz19v".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftaqz19v
+# 
+# 
+# ================================================================
+#     CONVOLUTION ACCELERATOR - FULL SYSTEM TESTBENCH
+#     Following project.txt Requirements
+# ================================================================
+# Array Size: 8x8
+# Data Width: 8-bit input, 32-bit accumulator
+# ================================================================
+# 
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K3_internal (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1767 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/N16_K3_internal_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K5_internal (Output: 12x12 = 144 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 25 kernel weights...
+#   Kernel loaded: 25 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 3603 cycles
+#   Phase 4: Collecting 144 output pixels...
+#   Results collected: 144 pixels
+#   Saved actual output to sim/testdata/N16_K5_internal_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 144 results match!
+# 
+# 
+# ================================================================
+# TEST CASE: N32_K3_internal (Output: 30x30 = 900 pixels)
+# ================================================================
+#   Phase 1: Loading 1024 input pixels...
+#   Input loaded: 1024 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 8103 cycles
+#   Phase 4: Collecting 900 output pixels...
+#   Results collected: 900 pixels
+#   Saved actual output to sim/testdata/N32_K3_internal_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 900 results match!
+#   Loading files: sim/testdata/N16_K3_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K3 (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1767 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/N16_K3_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+#   Loading files: sim/testdata/N16_K5_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K5 (Output: 12x12 = 144 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 25 kernel weights...
+#   Kernel loaded: 25 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 3603 cycles
+#   Phase 4: Collecting 144 output pixels...
+#   Results collected: 144 pixels
+#   Saved actual output to sim/testdata/N16_K5_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 144 results match!
+#   Loading files: sim/testdata/N32_K3_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N32_K3 (Output: 30x30 = 900 pixels)
+# ================================================================
+#   Phase 1: Loading 1024 input pixels...
+#   Input loaded: 1024 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 8103 cycles
+#   Phase 4: Collecting 900 output pixels...
+#   Results collected: 900 pixels
+#   Saved actual output to sim/testdata/N32_K3_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 900 results match!
+#   Loading files: sim/testdata/N16_K3_zeros_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K3_zeros (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1767 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/N16_K3_zeros_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+#   Loading files: sim/testdata/N16_K3_max_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K3_max (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1767 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   R# End time: 17:04:07 on Dec 19,2025, Elapsed time: 0:18:01
+# Errors: 0, Warnings: 2
+l.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+#   Loading files: sim/testdata/N16_K3_sparse_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K3_sparse (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1767 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/N16_K3_sparse_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+#   Loading files: sim/testdata/N16_K3_checker_input.hex
+# 
+# 
+# ================================================================
+# TEST CASE: N16_K3_checker (Output: 14x14 = 196 pixels)
+# ================================================================
+#   Phase 1: Loading 256 input pixels...
+#   Input loaded: 256 pixels
+#   Phase 2: Loading 9 kernel weights...
+#   Kernel loaded: 9 weights
+#   Phase 3: Computing convolution...
+#   Computation complete in 1767 cycles
+#   Phase 4: Collecting 196 output pixels...
+#   Results collected: 196 pixels
+#   Saved actual output to sim/testdata/N16_K3_checker_actual.txt
+#   Phase 5: Verifying results (tolerance: +/-1)...
+#   PASS: All 196 results match!
+# 
+# 
+# ================================================================
+#                     SIMULATION SUMMARY
+# ================================================================
+# Total Tests:  10
+# Passed:       10
+# Failed:       0
+# Total Errors: 0
+# 
+# *** ALL TESTS PASSED ***
+# 
+# ================================================================
+# 
+# ** Note: $finish    : rtl/tb/tb_full_system.v(480)
+#    Time: 416755 ns  Iteration: 1  Instance: /tb_full_system
+# End time: 16:58:58 on Dec 19,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 2

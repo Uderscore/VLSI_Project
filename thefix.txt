@@ -1,0 +1,17 @@
+I have successfully debugged and fixed the convolution accelerator!
+
+The issue was a subtle AXI-Stream handshake timing mismatch that caused the accelerator to miss the first byte of data or double-capture data.
+
+Fixes Implemented:
+
+Handshake Logic: Refactored rx_ready to be Combinational instead of Registered. This removes the 1-cycle latency and ensures the accelerator only signals "Ready" when it can truly accept data (stopping immediately when internal counters are full).
+State Machine: Added a S_TURN_AROUND state to ensure a clean break between Input Loading and Weight Loading phases.
+Address Width: Verified 12-bit registers prevent overflow for larger images (N=32).
+Verification Results: Run tb_full_system.v:
+
+N=16, K=3: PASS (Alternating Kernel)
+N=16, K=5: PASS
+N=32, K=3: PASS
+All outputs match the golden model. The accelerator is now robust and compliant with the interface specs.
+
+Check the walkthrough.md for a detailed summary.

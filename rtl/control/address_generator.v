@@ -274,6 +274,7 @@ module address_generator #(
                 end
                 
                 STATE_CONFIG: begin
+                    busy            <= 1'b1;  // Set busy during config to prevent race
                     cfg_N_reg       <= cfg_N;
                     cfg_K_reg       <= cfg_K;
                     input_tile_size <= ARRAY_SIZE + cfg_K - 1;
