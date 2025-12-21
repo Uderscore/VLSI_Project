@@ -16,7 +16,7 @@ module convolution_accelerator_top #(
     
     input  wire                     start,
     input  wire [6:0]               cfg_N,
-    input  wire [3:0]               cfg_K,
+    input  wire [4:0]               cfg_K,  // 5-bit to support K=16
     output reg                      done,
     output wire                     busy,
     
@@ -51,22 +51,25 @@ module convolution_accelerator_top #(
     // Configuration
     //==========================================================================
     reg [6:0]  N_reg;
-    reg [3:0]  K_reg;
-    reg [11:0] input_count;
-    reg [7:0]  kernel_count;
-    reg [11:0] output_count;
+    reg [4:0]  K_reg;  // Extended to 5-bit for safety
+    reg [12:0] input_count;  // Expanded to 13-bit for N=64 (4096)
+    reg [8:0]  kernel_count; 
+    reg [12:0] output_count; // Expanded to 13-bit
     reg [6:0]  out_size;
     
     //==========================================================================
-    // Counters - Use 12-bit for wider range
+    // Counters - Use 13-bit for wider range
     //==========================================================================
-    reg [11:0] load_counter;
-    reg [7:0]  weight_counter;
-    reg [11:0] drain_counter;
+    reg [12:0] load_counter;
+    reg [8:0]  weight_counter;  
+    reg [12:0] drain_counter;
     reg [11:0] out_x, out_y;     // 12-bit to prevent overflow in address calc
     reg [4:0]  kx, ky;
-    reg [PSUM_WIDTH-1:0] acc;
     reg        compute_done;
+    
+    // 8 Parallel Accumulators (one per PE)
+    reg [PSUM_WIDTH-1:0] acc [0:7];
+    integer p;  // Loop variable for parallel operations
     
     //==========================================================================
     // Memory
@@ -97,10 +100,16 @@ module convolution_accelerator_top #(
     // State Machine
     //==========================================================================
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n)
+        if (!rst_n) begin
             state <= S_IDLE;
-        else
+        end else begin
             state <= next_state;
+            if (state != next_state) begin
+                $display("[RTL DEBUG] Time=%0t State Transition: %0d -> %0d", $time, state, next_state);
+                $display("[RTL DEBUG] Counters: Load=%0d/%0d, Weight=%0d/%0d", 
+                         load_counter, input_count, weight_counter, kernel_count);
+            end
+        end
     end
     
     always @(*) begin
@@ -167,7 +176,9 @@ module convolution_accelerator_top #(
             out_y <= 0;
             kx <= 0;
             ky <= 0;
-            acc <= 0;
+            // Reset all 8 accumulators
+            acc[0] <= 0; acc[1] <= 0; acc[2] <= 0; acc[3] <= 0;
+            acc[4] <= 0; acc[5] <= 0; acc[6] <= 0; acc[7] <= 0;
             compute_done <= 0;
             done <= 0;
             // rx_ready removed (combinational)
@@ -185,10 +196,11 @@ module convolution_accelerator_top #(
                     if (start && rx_valid) begin
                         N_reg <= cfg_N;
                         K_reg <= cfg_K;
-                        input_count <= cfg_N * cfg_N;
-                        kernel_count <= cfg_K * cfg_K;
+                        // Use explicit width extension to avoid overflow (64*64=4096 needs 12 bits)
+                        input_count <= {5'b0, cfg_N} * {5'b0, cfg_N};
+                        kernel_count <= cfg_K * cfg_K;  // Max 16*16=256, fits in 8 bits
                         out_size <= cfg_N - cfg_K + 1;
-                        output_count <= (cfg_N - cfg_K + 1) * (cfg_N - cfg_K + 1);
+                        output_count <= ({5'b0, cfg_N} - {8'b0, cfg_K} + 1) * ({5'b0, cfg_N} - {8'b0, cfg_K} + 1);
                         load_counter <= 0;
                         weight_counter <= 0;
                         drain_counter <= 0;
@@ -196,7 +208,9 @@ module convolution_accelerator_top #(
                         out_y <= 0;
                         kx <= 0;
                         ky <= 0;
-                        acc <= 0;
+                        // Reset all 8 accumulators
+                        for (p = 0; p < 8; p = p + 1)
+                            acc[p] <= 0;
                     end
                 end
                 
@@ -225,25 +239,42 @@ module convolution_accelerator_top #(
                 //--------------------------------------------------------------
                 S_COMPUTE: begin
                     if (!compute_done) begin
-                        // One MAC per cycle - use pre-computed addresses to avoid overflow
-                        acc <= acc + input_mem[input_addr] * kernel_mem[kernel_addr];
+                        // Perform 8 MACs in parallel (one per PE)
+                        for (p = 0; p < 8; p = p + 1) begin
+                            if (out_x + p < out_size_12) begin
+                                // Calculate addresses for PE p
+                                acc[p] <= acc[p] + 
+                                    input_mem[(out_y + ky) * N_reg_12 + (out_x + p + kx)] * 
+                                    kernel_mem[ky * K_reg + kx];
+                            end
+                        end
                         
-                        // Check if this completes current pixel
+
+                        if (kx == 0 && ky == 0 && (out_x % 8 == 0))
+                             $display("[RTL DEBUG] S_COMPUTE Progress: out_x=%0d, out_y=%0d", out_x, out_y);
+                             
+                        // Check if this cycle completes K×K MACs for current 8 pixels
                         if (kx == K_reg - 1 && ky == K_reg - 1) begin
-                            // Store result (saturate to 8-bit)
-                            if (acc + input_mem[input_addr] * kernel_mem[kernel_addr] > 255)
-                                output_mem[output_addr] <= 8'hFF;
-                            else
-                                output_mem[output_addr] <= (acc + input_mem[input_addr] * kernel_mem[kernel_addr]);
+                            // Store 8 results with saturation
+                            for (p = 0; p < 8; p = p + 1) begin
+                                if (out_x + p < out_size_12) begin
+                                    // Compute final value with last MAC
+                                    if (acc[p] + input_mem[(out_y + ky) * N_reg_12 + (out_x + p + kx)] * kernel_mem[ky * K_reg + kx] > 255)
+                                        output_mem[out_y * out_size_12 + out_x + p] <= 8'hFF;
+                                    else
+                                        output_mem[out_y * out_size_12 + out_x + p] <= 
+                                            acc[p] + input_mem[(out_y + ky) * N_reg_12 + (out_x + p + kx)] * kernel_mem[ky * K_reg + kx];
+                                end
+                                acc[p] <= 0;  // Reset accumulator for next batch
+                            end
                             
-                            // Reset for next pixel
+                            // Reset kernel position
                             kx <= 0;
                             ky <= 0;
-                            acc <= 0;
                             
-                            // Advance output position
-                            if (out_x < out_size_12 - 1) begin
-                                out_x <= out_x + 1;
+                            // Advance output position by 8 (row-parallel)
+                            if (out_x + 8 < out_size_12) begin
+                                out_x <= out_x + 8;
                             end else begin
                                 out_x <= 0;
                                 if (out_y < out_size_12 - 1) begin

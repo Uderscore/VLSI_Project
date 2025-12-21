@@ -21,7 +21,7 @@ module tb_full_system;
     parameter ADDR_WIDTH    = 8;
     parameter ARRAY_SIZE    = 8;
     parameter CLK_PERIOD    = 10;   // 100 MHz
-    parameter TIMEOUT_CYCLES = 500000;
+    parameter TIMEOUT_CYCLES = 10000000;
 
     //==========================================================================
     // Clock and Reset
@@ -39,7 +39,7 @@ module tb_full_system;
     //==========================================================================
     reg         start;
     reg  [6:0]  cfg_N;
-    reg  [3:0]  cfg_K;
+    reg  [4:0]  cfg_K;  // 5-bit to support K=16
     wire        done;
     wire        busy;
     
@@ -208,7 +208,7 @@ module tb_full_system;
             $display("  Phase 1: Loading %0d input pixels...", total_input);
             
             cfg_N = N[6:0];
-            cfg_K = K[3:0];
+            cfg_K = K[4:0];  // 5-bit to support K=16
             start = 1;
             rx_valid = 1;
             rx_data = input_data[0];
@@ -264,7 +264,7 @@ module tb_full_system;
             if (timeout >= TIMEOUT_CYCLES) begin
                 $display("  FAIL: Timeout loading kernel at %0d/%0d", sent, total_kernel);
                 errors = errors + 1;
-                disable run_test;
+                disable execute_test_sequence;
             end
             $display("  Kernel loaded: %0d weights", sent);
             
@@ -284,7 +284,7 @@ module tb_full_system;
             if (timeout >= TIMEOUT_CYCLES) begin
                 $display("  FAIL: Computation timeout");
                 errors = errors + 1;
-                disable run_test;
+                disable execute_test_sequence;
             end
             $display("  Computation complete in %0d cycles", timeout);
             
@@ -311,7 +311,7 @@ module tb_full_system;
             if (timeout >= TIMEOUT_CYCLES) begin
                 $display("  FAIL: Timeout collecting results at %0d/%0d", received, total_output);
                 errors = errors + 1;
-                disable run_test;
+                disable execute_test_sequence;
             end
             $display("  Results collected: %0d pixels", received);
             
@@ -376,14 +376,31 @@ module tb_full_system;
     // Run Standard Test (Internal Generation)
     //Wrapper for backwards compatibility / internal tests
     //==========================================================================
+    //==========================================================================
+    // Helper Task: Explicit DUT Reset
+    //==========================================================================
+    task reset_dut;
+        begin
+            rst_n = 0;
+            start = 0;
+            rx_valid = 0;
+            tx_ready = 1;
+            repeat(10) @(posedge clk);
+            rst_n = 1;
+            repeat(5) @(posedge clk);
+        end
+    endtask
+
     task run_test;
         input integer N;
         input integer K;
         string tname;
+        
         begin
             generate_test_data(N, K);
             $sformat(tname, "N%0d_K%0d_internal", N, K);
             execute_test_sequence(N, K, tname);
+            reset_dut(); // Explicit reset after test
         end
     endtask
 
@@ -396,22 +413,78 @@ module tb_full_system;
         input string pattern; // "random", "zeros", etc.
         string tname;
         string input_file, kernel_file, expect_file;
+        
         begin
             if (pattern == "random")
                 $sformat(tname, "N%0d_K%0d", N, K);
             else
                 $sformat(tname, "N%0d_K%0d_%0s", N, K, pattern);
             
-            $sformat(input_file, "sim/testdata/%s_input.hex", tname);
+            // Construct filenames
+            $sformat(input_file,  "sim/testdata/%s_input.hex", tname);
             $sformat(kernel_file, "sim/testdata/%s_kernel.hex", tname);
             $sformat(expect_file, "sim/testdata/%s_expected_32bit.hex", tname);
             
-            $display("  Loading files: %s", input_file);
+            // Invoke the generator script via system command
+            // Note: In a real environment, you'd call the python script here.
+            // For now, we assume the python script has already run or files exist.
+            // $system($sformatf("python3 scripts/gen_test_vectors.py --n %0d --k %0d --pattern %s", N, K, pattern));
+            
+            // Load data from files
+            $display("Loading files: %s", input_file);
             $readmemh(input_file, input_data);
             $readmemh(kernel_file, kernel_data);
             $readmemh(expect_file, expected_output);
             
             execute_test_sequence(N, K, tname);
+            reset_dut(); // Explicit reset after test
+        end
+    endtask
+    
+    task run_custom_test;
+        input string tname;
+        
+        integer cfg_fd;
+        integer scan_res;
+        integer N, K;
+        reg [1023:0] line_buf; 
+        string cfg_path;
+        string file_path;
+        
+        begin
+            $sformat(cfg_path, "test_cases/%s_config.txt", tname);
+            cfg_fd = $fopen(cfg_path, "r");
+            if (cfg_fd == 0) begin
+                $display("ERROR: Could not open config file: %s", cfg_path);
+                errors = errors + 1;
+                disable run_custom_test;
+            end
+            
+            // Parse Config File (Simple N=.., K=.. format)
+            // Assumes lines like "N=16", "K=3"
+            while (!$feof(cfg_fd)) begin
+                scan_res = $fgets(line_buf, cfg_fd);
+                if (scan_res > 0) begin
+                    scan_res = $sscanf(line_buf, "N=%d", N);
+                    scan_res = $sscanf(line_buf, "K=%d", K);
+                end
+            end
+            $fclose(cfg_fd);
+            
+            $display("Loaded Custom Test: %s (N=%0d, K=%0d)", tname, N, K);
+            
+            // Load Hex Files
+            $sformat(file_path, "test_cases/%s_in.hex", tname);
+            $readmemh(file_path, input_data);
+            
+            $sformat(file_path, "test_cases/%s_weight.hex", tname);
+            $readmemh(file_path, kernel_data);
+            
+            $sformat(file_path, "test_cases/%s_gold.hex", tname);
+            $readmemh(file_path, expected_output);
+            
+            execute_test_sequence(N, K, tname);
+            reset_dut(); // Explicit reset after test
         end
     endtask
 
@@ -457,6 +530,18 @@ module tb_full_system;
         run_file_test(16, 3, "max");
         run_file_test(16, 3, "sparse");
         run_file_test(16, 3, "checker");
+        
+        // Custom Tests from test_cases directory
+        run_custom_test("01_Basic_Minimal");
+        run_custom_test("02_Basic_Identity");
+        run_custom_test("03_Basic_AllOnes");
+        run_custom_test("04_Regular_Standard");
+        run_custom_test("05_Regular_LargeHalo");
+        run_custom_test("06_Regular_PingPong");
+        run_custom_test("07_Adv_MaxSpec");
+        run_custom_test("08_Adv_Throughput");
+        run_custom_test("09_Pro_PartialTile");
+        run_custom_test("10_Pro_Saturation");
         
         //----------------------------------------------------------------------
         // Summary

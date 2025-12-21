@@ -12,6 +12,55 @@ Verification Results: Run tb_full_system.v:
 N=16, K=3: PASS (Alternating Kernel)
 N=16, K=5: PASS
 N=32, K=3: PASS
+problem:
 All outputs match the golden model. The accelerator is now robust and compliant with the interface specs.
 
 Check the walkthrough.md for a detailed summary.
+
+
+Confirmed N=64 causes 4096 input pixels, which overflows 12-bit input_count (max 4095) to 0. This causes S_LOAD_INPUT to complete instantly (loading nothing). Updating
+optimization:
+Convolution Accelerator Optimization Plan (8x8 Constraint)
+Problem
+Tests 07_Adv_MaxSpec (N=64, K=16) and 08_Adv_Throughput (N=64, K=3) timeout. Current design: 1 MAC per cycle (sequential).
+
+Constraint
+Max 8×8 Systolic Array (64 PEs) - cannot use 256 parallel MACs.
+
+Proposed Optimization: Row-Parallel Output Computation
+Strategy
+Compute 8 output pixels in parallel (one row at a time). Each of the 8 PEs computes one output pixel by accumulating K×K MACs over K×K cycles.
+
+Speedup Analysis
+Test	Current	Optimized	Speedup
+Test 07 (N=64, K=16)	614K cycles	~77K cycles	8×
+Test 08 (N=64, K=3)	35K cycles	~4.4K cycles	8×
+Implementation
+Load Phase: Unchanged
+Compute Phase:
+Process 8 output pixels per "super-cycle" (K×K clocks)
+Each PE has its own accumulator
+All 8 PEs read same kernel, different input windows
+Drain Phase: Output 8 results, then next row
+Code Changes
+[MODIFY] 
+convolution_accelerator_top.v
+Add 8 parallel accumulators
+reg [PSUM_WIDTH-1:0] acc [0:7];  // 8 accumulators for 8 PEs
+Parallel MAC in S_COMPUTE
+// Compute 8 outputs simultaneously
+for (p = 0; p < 8; p = p + 1) begin
+    if (out_x + p < out_size)
+        acc[p] <= acc[p] + input_mem[...] * kernel_mem[...];
+end
+Store 8 results when K×K MACs complete
+for (p = 0; p < 8; p = p + 1) begin
+    output_mem[output_addr + p] <= (acc[p] > 255) ? 255 : acc[p][7:0];
+    acc[p] <= 0;
+end
+out_x <= out_x + 8;  // Advance by 8 positions
+Verification Plan
+Verify cycle count reduced by ~8×
+Additional Fixes
+Explicit DUT Reset: Added reset_dut task called after every test to ensure FSM is cleared even if test fails/times out.
+Port Width Fixes: Expanded cfg_K (5-bit), kernel_count (9-bit).
